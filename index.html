@@ -148,6 +148,12 @@ a { color: var(--leaf-ink); }
 .hero::after { content: ""; position: absolute; left: -15%; top: -35%; width: 55%; aspect-ratio: 1; background: radial-gradient(closest-side, rgba(255, 255, 255, .12), transparent); z-index: -1; }
 .hero-leaf { position: absolute; z-index: -1; color: rgba(255, 255, 255, .07); animation: sway 16s ease-in-out infinite alternate; }
 .hero-leaf svg { width: 100%; height: 100%; fill: currentColor; }
+.lang-switch { position: absolute; z-index: 2; top: clamp(24px, 5vw, 56px); right: clamp(24px, 5vw, 56px); display: inline-flex; align-items: center; gap: 2px; padding: 4px; border-radius: 14px; background: var(--glass); border: 1px solid var(--glass-line); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); animation: rise .7s var(--ease) .3s backwards; }
+.lang-ic { display: grid; place-items: center; padding: 0 4px 0 6px; color: var(--on-grad-2); }
+.lang-ic .ic { width: 18px; height: 18px; }
+.lang-switch button { min-height: 38px; min-width: 46px; padding: 0 12px; border: 0; border-radius: 10px; background: transparent; color: var(--on-grad); font-weight: 750; font-size: .95rem; letter-spacing: .05em; cursor: pointer; transition: background .25s, color .25s, box-shadow .25s; }
+.lang-switch button[aria-pressed="true"] { background: #fff; color: var(--btn-light-ink); box-shadow: 0 6px 14px -8px rgba(0, 0, 0, .45); }
+.lang-switch button:not([aria-pressed="true"]):hover { background: rgba(255, 255, 255, .16); }
 .hero-text { display: flex; flex-direction: column; gap: 18px; min-width: 0; }
 .brand { display: inline-flex; align-items: center; gap: 10px; font-family: var(--font-display); font-weight: 750; font-size: 1.25rem; letter-spacing: -.01em; }
 .brand-mark { width: 42px; height: 42px; border-radius: 14px; background: var(--glass); border: 1px solid var(--glass-line); display: grid; place-items: center; }
@@ -403,6 +409,8 @@ a { color: var(--leaf-ink); }
 
 .say { margin: 0; display: flex; flex-direction: column; gap: 10px; align-items: flex-start; padding: 18px 20px; border-radius: 20px; background: var(--mint); border: 1px solid var(--mint-2); }
 .say blockquote { margin: 0; font-size: 1.1rem; line-height: 1.55; color: var(--ink); font-weight: 500; }
+.slide .say-tr { font-size: .96rem; font-style: italic; color: var(--ink-2); }
+.slide .en-hint { margin-top: 6px; font-size: .93rem; font-weight: 600; color: var(--leaf-ink); }
 .say blockquote::before { content: "\201C"; font-family: var(--font-display); font-size: 2.6rem; line-height: 0; vertical-align: -.42em; margin-right: 4px; color: var(--leaf); }
 .copy { display: inline-flex; align-items: center; gap: 6px; min-height: 40px; padding: 0 14px; border-radius: 12px; border: 1px solid var(--mint-2); background: var(--surface); color: var(--leaf-ink); font-weight: 700; font-size: .9rem; cursor: pointer; transition: background .25s, color .25s, border-color .25s, transform .2s var(--ease); }
 .copy:hover { border-color: var(--leaf); }
@@ -682,16 +690,22 @@ a { color: var(--leaf-ink); }
       <div class="hero-leaf" aria-hidden="true" style="right:-40px;top:-50px;width:240px;height:240px;--r:25deg"><svg viewBox="0 0 64 64"><path d="M32 4C18 14 10 28 14 44c2 8 10 14 18 16 8-2 16-8 18-16 4-16-4-30-18-40Z"/></svg></div>
       <div class="hero-leaf" aria-hidden="true" style="left:38%;bottom:-70px;width:160px;height:160px;--r:-35deg;animation-delay:-7s"><svg viewBox="0 0 64 64"><path d="M32 4C18 14 10 28 14 44c2 8 10 14 18 16 8-2 16-8 18-16 4-16-4-30-18-40Z"/></svg></div>
 
+      <div class="lang-switch" role="group" aria-label="Language / Idioma">
+        <span class="lang-ic" aria-hidden="true"></span>
+        <button type="button" data-lang="en" lang="en" aria-label="English" aria-pressed="true">EN</button>
+        <button type="button" data-lang="es" lang="es" aria-label="Español" aria-pressed="false">ES</button>
+      </div>
+
       <div class="hero-text">
         <span class="brand"><span class="brand-mark" id="brand-mark"></span>DeliGran</span>
-        <span class="eyebrow">Store-ready plan · Leamington, Ontario</span>
-        <h1 id="hero-title">Get DeliGran on <em>store shelves</em></h1>
-        <p class="lead">To sell in stores, four things need to be in place. It takes about 4–6 weeks and roughly $600–$1,500, including a year of insurance. Custom-printed bags come later, once stores are reordering.</p>
+        <span class="eyebrow" data-t="eyebrow">Store-ready plan · Leamington, Ontario</span>
+        <h1 id="hero-title" data-th="h1">Get DeliGran on <em>store shelves</em></h1>
+        <p class="lead" data-t="lead">To sell in stores, four things need to be in place. It takes about 4–6 weeks and roughly $600–$1,500, including a year of insurance. Custom-printed bags come later, once stores are reordering.</p>
         <div class="hero-facts" id="hero-facts"></div>
       </div>
 
-      <aside class="pcard" aria-label="Your progress">
-        <span class="eyebrow">Your progress</span>
+      <aside class="pcard" aria-label="Your progress" data-ta="progress">
+        <span class="eyebrow" data-t="progress">Your progress</span>
         <div class="ring">
           <svg viewBox="0 0 120 120" aria-hidden="true">
             <defs><linearGradient id="ringGrad" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#E9FFC2"/><stop offset="1" stop-color="#9BE07A"/></linearGradient></defs>
@@ -701,26 +715,26 @@ a { color: var(--leaf-ink); }
           <div class="ring-center"><strong id="p-done">0</strong><span id="p-total">of 34 tasks</span></div>
         </div>
         <p class="pcard-sub" id="p-steps">0 of 9 steps complete</p>
-        <p class="pcard-done" id="p-alldone" hidden>DeliGran is store-ready.</p>
+        <p class="pcard-done" id="p-alldone" data-t="alldone" hidden>DeliGran is store-ready.</p>
         <button type="button" class="btn btn-light" id="hero-go" data-open-step="1" data-resume><span>Start with Step 1</span></button>
       </aside>
     </section>
 
-    <nav class="ess-row" id="ess-row" aria-label="Four things stores need"></nav>
+    <nav class="ess-row" id="ess-row" aria-label="Four things stores need" data-ta="essAria"></nav>
   </header>
 
   <section class="sec" aria-labelledby="steps-title">
     <div class="sec-head">
-      <h2 id="steps-title">Your steps</h2>
-      <p>Tap a box to open it. Each step walks you through slide by slide. Mark each task done as you go.</p>
+      <h2 id="steps-title" data-t="stepsTitle">Your steps</h2>
+      <p data-t="stepsSub">Tap a box to open it. Each step walks you through slide by slide. Mark each task done as you go.</p>
     </div>
 
     <a class="cert" href="#certificate" data-open-step="0">
       <span class="cert-ic" id="cert-ic"></span>
       <span class="cert-body">
-        <small>Already done</small>
-        <strong>Food handler certificate</strong>
-        <span>Arcesio Ramirez Mora · Managing Food Safety · valid until Aug 5, 2030</span>
+        <small data-t="certSmall">Already done</small>
+        <strong data-t="certTitle">Food handler certificate</strong>
+        <span data-t="certLine">Arcesio Ramirez Mora · Managing Food Safety · valid until Aug 5, 2030</span>
       </span>
       <span class="pill pill-done" id="cert-pill"></span>
     </a>
@@ -730,8 +744,8 @@ a { color: var(--leaf-ink); }
 
   <section class="sec" aria-labelledby="tl-title">
     <div class="sec-head">
-      <h2 id="tl-title">Timeline</h2>
-      <p>From the first phone call to the first store pitches. Tap any item to open its step.</p>
+      <h2 id="tl-title" data-t="tlTitle">Timeline</h2>
+      <p data-t="tlSub">From the first phone call to the first store pitches. Tap any item to open its step.</p>
     </div>
     <div class="tl" id="timeline"></div>
   </section>
@@ -739,36 +753,36 @@ a { color: var(--leaf-ink); }
   <div class="duo">
     <section class="sec" aria-labelledby="cost-title">
       <div class="sec-head">
-        <h2 id="cost-title">Where we stand</h2>
-        <p>Approximate costs in Canadian dollars. Status updates as you tick tasks.</p>
+        <h2 id="cost-title" data-t="costTitle">Where we stand</h2>
+        <p data-t="costSub">Approximate costs in Canadian dollars. Status updates as you tick tasks.</p>
       </div>
       <div class="panel">
         <div id="costs"></div>
-        <div class="cost-total"><span>Total, including a year of insurance</span><strong>$600–$1,500</strong></div>
+        <div class="cost-total"><span data-t="costTotal">Total, including a year of insurance</span><strong>$600–$1,500</strong></div>
       </div>
     </section>
 
     <section class="sec" aria-labelledby="later-title">
       <div class="sec-head">
-        <h2 id="later-title">Later</h2>
-        <p>Once stores are reordering.</p>
+        <h2 id="later-title" data-t="laterTitle">Later</h2>
+        <p data-t="laterSub">Once stores are reordering.</p>
       </div>
       <div class="later" id="later"></div>
     </section>
   </div>
 
   <footer class="foot">
-    <p>Progress is saved on this device. No login needed.</p>
-    <button type="button" class="reset" id="reset"><span>Reset progress</span></button>
+    <p data-t="footNote">Progress is saved on this device. No login needed.</p>
+    <button type="button" class="reset" id="reset"><span data-t="reset">Reset progress</span></button>
   </footer>
 </main>
 
-<div class="dock" id="dock" role="region" aria-label="Next step">
+<div class="dock" id="dock" role="region" aria-label="Next step" data-ta="dockAria">
   <div class="dock-ring" aria-hidden="true">
     <svg viewBox="0 0 48 48"><circle class="track" cx="24" cy="24" r="20"/><circle class="fill" id="dock-fill" cx="24" cy="24" r="20" pathLength="100"/></svg>
     <span id="dock-pct">0%</span>
   </div>
-  <div class="dock-text"><small>Next up</small><strong id="dock-title">Step 1 · Health unit inspection</strong></div>
+  <div class="dock-text"><small data-t="nextUp">Next up</small><strong id="dock-title">Step 1 · Health unit inspection</strong></div>
   <button type="button" class="btn btn-light" id="dock-go" data-open-step="1" data-resume><span>Start</span></button>
 </div>
 
@@ -779,7 +793,7 @@ a { color: var(--leaf-ink); }
     <header class="deck-head">
       <span class="num" id="deck-num">1</span>
       <div class="deck-titles"><span class="deck-sup" id="deck-sup">Step 1 of 9</span><h2 id="deck-title">Step</h2></div>
-      <button type="button" class="icon-btn" id="deck-close" aria-label="Close and go back to all steps"></button>
+      <button type="button" class="icon-btn" id="deck-close" aria-label="Close and go back to all steps" data-ta="closeAria"></button>
     </header>
     <div class="segs" id="deck-segs"></div>
     <div class="deck-body" id="deck-body" aria-live="polite"></div>
@@ -799,6 +813,50 @@ a { color: var(--leaf-ink); }
 
   var reduceMotion = false;
   try { reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches; } catch (e) {}
+
+  /* ---------------- language ---------------- */
+  const LANG_KEY = 'deligran-store-plan:lang';
+  let lang = 'en';
+  (function () {
+    let q = null;
+    try { q = new URLSearchParams(location.search).get('lang'); } catch (e) {}
+    if (q === 'es' || q === 'en') { lang = q; return; }
+    try { const s = localStorage.getItem(LANG_KEY); if (s === 'es' || s === 'en') { lang = s; return; } } catch (e) {}
+    const nav = (navigator.languages && navigator.languages[0]) || navigator.language || '';
+    if (/^es/i.test(nav)) lang = 'es';
+  })();
+  function L(en, es) { return lang === 'es' ? es : en; }
+  function tx(v) { return Array.isArray(v) ? (lang === 'es' ? v[1] : v[0]) : v; }
+
+  const UI = {
+    title: ['DeliGran Store Plan', 'Plan DeliGran para tiendas'],
+    eyebrow: ['Store-ready plan · Leamington, Ontario', 'Plan para vender en tiendas · Leamington, Ontario'],
+    h1: ['Get DeliGran on <em>store shelves</em>', 'Lleva DeliGran a las <em>tiendas</em>'],
+    lead: ['To sell in stores, four things need to be in place. It takes about 4–6 weeks and roughly $600–$1,500, including a year of insurance. Custom-printed bags come later, once stores are reordering.',
+      'Para vender en tiendas hay que tener cuatro cosas listas. Toma unas 4–6 semanas y cuesta aproximadamente $600–$1,500, incluido un año de seguro. Las bolsas impresas a la medida vienen después, cuando las tiendas vuelvan a pedir.'],
+    progress: ['Your progress', 'Tu progreso'],
+    alldone: ['DeliGran is store-ready.', 'DeliGran está listo para las tiendas.'],
+    essAria: ['Four things stores need', 'Cuatro cosas que piden las tiendas'],
+    stepsTitle: ['Your steps', 'Tus pasos'],
+    stepsSub: ['Tap a box to open it. Each step walks you through slide by slide. Mark each task done as you go.',
+      'Toca un recuadro para abrirlo. Cada paso te guía diapositiva por diapositiva. Marca cada tarea cuando la termines.'],
+    certSmall: ['Already done', 'Ya está hecho'],
+    certTitle: ['Food handler certificate', 'Certificado de manipulador de alimentos'],
+    certLine: ['Arcesio Ramirez Mora · Managing Food Safety · valid until Aug 5, 2030', 'Arcesio Ramirez Mora · Managing Food Safety · válido hasta el 5 de agosto de 2030'],
+    tlTitle: ['Timeline', 'Calendario'],
+    tlSub: ['From the first phone call to the first store pitches. Tap any item to open its step.', 'Desde la primera llamada hasta las primeras visitas a tiendas. Toca cualquier punto para abrir su paso.'],
+    costTitle: ['Where we stand', 'Dónde estamos'],
+    costSub: ['Approximate costs in Canadian dollars. Status updates as you tick tasks.', 'Costos aproximados en dólares canadienses. El estado se actualiza cuando marcas las tareas.'],
+    costTotal: ['Total, including a year of insurance', 'Total, incluido un año de seguro'],
+    laterTitle: ['Later', 'Más adelante'],
+    laterSub: ['Once stores are reordering.', 'Cuando las tiendas vuelvan a pedir.'],
+    footNote: ['Progress is saved on this device. No login needed.', 'El progreso se guarda en este dispositivo. No necesitas cuenta.'],
+    reset: ['Reset progress', 'Borrar progreso'],
+    resetArmed: ['Tap again to clear all progress', 'Toca otra vez para borrar todo'],
+    nextUp: ['Next up', 'Sigue'],
+    dockAria: ['Next step', 'Siguiente paso'],
+    closeAria: ['Close and go back to all steps', 'Cerrar y volver a todos los pasos']
+  };
 
   /* ---------------- icons ---------------- */
   const ICONS = {
@@ -836,8 +894,6 @@ a { color: var(--leaf-ink); }
     pouch: '<path d="M7 4h10l1 4v11a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2V8z"/><path d="M6 8h12M10 13h4"/>',
     home: '<path d="M3 11 12 4l9 7"/><path d="M5 10v10h14V10"/><path d="M10 20v-5h4v5"/>',
     refresh: '<path d="M3 12a9 9 0 0 1 15.5-6.2L21 8M21 3v5h-5M21 12a9 9 0 0 1-15.5 6.2L3 16M3 21v-5h5"/>',
-    scale: '<path d="M5 20h14M12 4v16M5 8h14M5 8l-3 6a3 3 0 0 0 6 0zM19 8l-3 6a3 3 0 0 0 6 0z"/>',
-    message: '<path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z"/>',
     flag: '<path d="M5 21V4M5 4h11l-2 4 2 4H5"/>'
   };
   function icon(name, cls) {
@@ -892,13 +948,16 @@ a { color: var(--leaf-ink); }
     const k = kind || 'tip';
     return '<div class="callout ' + k + '">' + icon(k === 'warn' ? 'alert' : 'bulb') + '<div>' + html + '</div></div>';
   }
-  function say(text, label) {
+  function copyBtn(id, label, cls) {
+    return '<button type="button" class="copy' + (cls ? ' ' + cls : '') + '" data-copy="' + id + '">' + icon('copy') + '<span>' + (label || L('Copy', 'Copiar')) + '</span></button>';
+  }
+  function say(text, label, translation) {
     const id = nid();
-    return '<figure class="say"><figcaption class="mini-label">' + (label || 'Say this') + '</figcaption><blockquote id="' + id + '">' + text + '</blockquote>' +
-      '<button type="button" class="copy" data-copy="' + id + '">' + icon('copy') + '<span>Copy</span></button></figure>';
+    return '<figure class="say"><figcaption class="mini-label">' + (label || L('Say this', 'Di esto')) + '</figcaption><blockquote id="' + id + '">' + text + '</blockquote>' +
+      (translation ? '<p class="say-tr">' + translation + '</p>' : '') + copyBtn(id) + '</figure>';
   }
   function subs(taskId, items, cls) {
-    return '<div class="subs' + (cls ? ' ' + cls : '') + '" data-group="' + taskId + '" data-count="' + items.length + '">' + items.map(function (t, i) {
+    return '<div class="subs' + (cls ? ' ' + cls : '') + '" data-group="' + taskId + '">' + items.map(function (t, i) {
       const id = taskId + '#' + i; const on = !!state.subs[id];
       return '<button type="button" class="sub' + (on ? ' on' : '') + '" data-sub="' + id + '" aria-pressed="' + on + '"><span class="box">' + CHECK + '</span><span>' + t + '</span></button>';
     }).join('') + '</div>';
@@ -912,11 +971,12 @@ a { color: var(--leaf-ink); }
   function biField(name, en, fr) {
     const a = nid(), b = nid();
     return '<div class="fieldrow"><h4>' + name + '</h4><div class="bil">' +
-      '<div class="lang"><span class="lang-tag">EN</span><p id="' + a + '">' + esc(en) + '</p><button type="button" class="copy sm" data-copy="' + a + '">' + icon('copy') + '<span>Copy</span></button></div>' +
-      '<div class="lang"><span class="lang-tag">FR</span><p id="' + b + '">' + esc(fr) + '</p><button type="button" class="copy sm" data-copy="' + b + '">' + icon('copy') + '<span>Copy</span></button></div>' +
+      '<div class="lang"><span class="lang-tag">EN</span><p id="' + a + '" lang="en">' + esc(en) + '</p>' + copyBtn(a, '', 'sm') + '</div>' +
+      '<div class="lang"><span class="lang-tag">FR</span><p id="' + b + '" lang="fr">' + esc(fr) + '</p>' + copyBtn(b, '', 'sm') + '</div>' +
       '</div></div>';
   }
   function oneField(name, text) { return '<div class="fieldrow"><h4>' + name + '</h4><p>' + text + '</p></div>'; }
+  function hint(text) { return lang === 'es' ? '<p class="en-hint">' + text + '</p>' : ''; }
 
   const PROMPT = 'Using the attached DeliGran logo and reference design, create the FRONT label artwork for a granola bag, 4 x 6 inches, portrait, high resolution, print-ready. Match the reference style: warm, sunny, natural, cream background with soft bokeh, green leaves in the corners, golden sunlight glow.\n\n' +
     'Top: the DeliGran logo exactly as attached.\n' +
@@ -929,10 +989,17 @@ a { color: var(--leaf-ink); }
     'Leave a clean, empty square area about 1 x 1 inch in the upper right, next to the logo, with no art or text in it.\n\n' +
     'RULES: Spell every word exactly as written, including the French accents. Add no other text. Keep text at least 0.25 inches from the edges.';
 
-  const BATCH_COLS = ['Lot number', 'Date made', 'Batch size', 'Ingredient brands and where bought', 'Bags made', 'Where the bags went'];
+  const BATCH_COLS = [
+    ['Lot number', 'Número de lote'],
+    ['Date made', 'Fecha de elaboración'],
+    ['Batch size', 'Tamaño de la tanda'],
+    ['Ingredient brands and where bought', 'Marcas de ingredientes y dónde se compraron'],
+    ['Bags made', 'Bolsas hechas'],
+    ['Where the bags went', 'A dónde fueron las bolsas']
+  ];
   const COPY_KEYS = {
     phone: function () { return '519-258-2146 ext. 4475'; },
-    batchCols: function () { return BATCH_COLS.join('\t'); }
+    batchCols: function () { return BATCH_COLS.map(tx).join('\t'); }
   };
 
   let pitchLang = 'es';
@@ -940,233 +1007,279 @@ a { color: var(--leaf-ink); }
   /* ---------------- the plan ---------------- */
   const STEPS = [
     {
-      n: 1, id: 'inspection', icon: 'clip', title: 'Health unit inspection',
-      short: 'Tell the health unit about DeliGran and book a kitchen inspection.',
-      week: 'Weeks 1–2', cost: 'Ask when calling',
-      why: 'Every home-based food business in Windsor-Essex must notify the Windsor-Essex County Health Unit and get inspected. Granola is a low-risk food, so a home kitchen is allowed and some commercial-kitchen rules don’t apply.',
+      n: 1, id: 'inspection', icon: 'clip',
+      title: ['Health unit inspection', 'Inspección de la unidad de salud'],
+      short: ['Tell the health unit about DeliGran and book a kitchen inspection.', 'Avisa a la unidad de salud sobre DeliGran y pide una inspección de la cocina.'],
+      week: ['Weeks 1–2', 'Semanas 1–2'], cost: ['Ask when calling', 'Se pregunta al llamar'],
+      why: ['Every home-based food business in Windsor-Essex must notify the Windsor-Essex County Health Unit and get inspected. Granola is a low-risk food, so a home kitchen is allowed and some commercial-kitchen rules don’t apply.',
+        'Todo negocio de comida hecho en casa en Windsor-Essex debe avisar a la Windsor-Essex County Health Unit y pasar una inspección. La granola es un alimento de bajo riesgo, así que se permite una cocina de casa y algunas reglas de cocina comercial no aplican.'],
       slides: [
-        { task: 'call', label: 'Call a Public Health Inspector', html: function () {
-          return '<p>Call the Windsor-Essex County Health Unit and ask for a Public Health Inspector.</p>' +
+        { task: 'call', label: ['Call a Public Health Inspector', 'Llama a un inspector de salud pública'], html: function () {
+          return '<p>' + L('Call the Windsor-Essex County Health Unit and ask for a Public Health Inspector.', 'Llama a la Windsor-Essex County Health Unit y pide hablar con un Public Health Inspector (inspector de salud pública).') + '</p>' +
             '<div class="phone"><div><div class="digits">519-258-2146</div><div class="ext">ext. 4475</div></div>' +
-            '<div class="phone-actions"><a class="btn btn-light sm" href="tel:+15192582146,4475">' + icon('phone') + '<span>Call</span></a>' +
-            '<button type="button" class="btn btn-glass sm" data-copy-key="phone">' + icon('copy') + '<span>Copy</span></button></div></div>' +
-            say('I want to start a home-based business making granola, a low-risk food, and I’d like to notify you and book an inspection.');
+            '<div class="phone-actions"><a class="btn btn-light sm" href="tel:+15192582146,4475">' + icon('phone') + '<span>' + L('Call', 'Llamar') + '</span></a>' +
+            '<button type="button" class="btn btn-glass sm" data-copy-key="phone">' + icon('copy') + '<span>' + L('Copy', 'Copiar') + '</span></button></div></div>' +
+            say('I want to start a home-based business making granola, a low-risk food, and I’d like to notify you and book an inspection.',
+              L('Say this', 'Di esto (en inglés)'),
+              lang === 'es' ? 'En español: “Quiero empezar un negocio desde casa haciendo granola, un alimento de bajo riesgo, y quiero avisarles y pedir una inspección.”' : '');
         } },
-        { task: 'ask', label: 'Ask what they want to see', title: 'Ask two questions on the call', html: function () {
+        { task: 'ask', label: ['Ask what they want to see', 'Pregunta qué quieren ver'], title: ['Ask two questions on the call', 'Haz dos preguntas en la llamada'], html: function () {
           return '<ol class="qlist">' +
-            '<li><span class="qn">1</span><div><strong>What do you want to see?</strong><p>Ask what the inspector will look at during the visit.</p></div></li>' +
-            '<li><span class="qn">2</span><div><strong>Do you give written proof of inspection?</strong><p>Ask if you get something in writing that stores can see.</p></div></li>' +
+            '<li><span class="qn">1</span><div><strong>' + L('What do you want to see?', '¿Qué quieren ver?') + '</strong><p>' + L('Ask what the inspector will look at during the visit.', 'Pregunta qué va a revisar el inspector durante la visita.') + '</p>' +
+              hint('En inglés: “What will you check during the visit?”') + '</div></li>' +
+            '<li><span class="qn">2</span><div><strong>' + L('Do you give written proof of inspection?', '¿Dan un comprobante escrito de la inspección?') + '</strong><p>' + L('Ask if you get something in writing that stores can see.', 'Pregunta si te dan algo por escrito que las tiendas puedan ver.') + '</p>' +
+              hint('En inglés: “Do you give written proof of inspection that stores can see?”') + '</div></li>' +
             '</ol>';
         } },
-        { task: 'prep', label: 'Get the kitchen ready for the visit', html: function () {
-          return '<p>Have all of this ready before the inspector arrives. Tick each one as you go.</p>' +
-            subs('inspection.prep', ['Clean kitchen', 'Business ingredients stored covered and off the floor', 'Soap and paper towels at the sink', 'No pests', 'A copy of the food handler certificate', 'The batch log (Step 7)']);
+        { task: 'prep', label: ['Get the kitchen ready for the visit', 'Prepara la cocina para la visita'], html: function () {
+          return '<p>' + L('Have all of this ready before the inspector arrives. Tick each one as you go.', 'Ten todo esto listo antes de que llegue el inspector. Marca cada uno.') + '</p>' +
+            subs('inspection.prep', lang === 'es'
+              ? ['Cocina limpia', 'Ingredientes del negocio tapados y sin tocar el piso', 'Jabón y toallas de papel junto al fregadero', 'Sin plagas', 'Una copia del certificado de manipulador de alimentos', 'El registro de lotes (Paso 7)']
+              : ['Clean kitchen', 'Business ingredients stored covered and off the floor', 'Soap and paper towels at the sink', 'No pests', 'A copy of the food handler certificate', 'The batch log (Step 7)']);
         } },
-        { task: 'maycontain', label: 'Ask about a “May contain” line', html: function () {
-          return '<p>If the same kitchen is also used for <strong>wheat flour or other nuts</strong>, ask the inspector whether a “May contain” line is a good idea.</p>' +
-            tip('The label already says <strong>Contains: Peanuts, almonds.</strong> This question is about other allergens that share the kitchen.');
+        { task: 'maycontain', label: ['Ask about a “May contain” line', 'Pregunta por la línea “May contain”'], html: function () {
+          return '<p>' + L('If the same kitchen is also used for <strong>wheat flour or other nuts</strong>, ask the inspector whether a “May contain” line is a good idea.',
+              'Si en la misma cocina también se usa <strong>harina de trigo u otras nueces</strong>, pregúntale al inspector si conviene poner una línea “May contain” (puede contener).') + '</p>' +
+            tip(L('The label already says <strong>Contains: Peanuts, almonds.</strong> This question is about other allergens that share the kitchen.',
+              'La etiqueta ya dice <strong>Contains: Peanuts, almonds.</strong> (contiene: maní, almendras). Esta pregunta es sobre otros alérgenos que comparten la cocina.'));
         } }
       ]
     },
     {
-      n: 2, id: 'registration', icon: 'briefcase', title: 'Business registration and insurance',
-      short: 'Register the name, open a bank account, set up payments and get insured.',
-      week: 'Week 1', cost: '$60 + $300–$800/yr', costLong: '$60 + insurance $300–$800 per year',
-      why: 'Register the DeliGran name, keep the money separate, and get insured. Many stores ask for proof of insurance before they put a product on the shelf.',
+      n: 2, id: 'registration', icon: 'briefcase',
+      title: ['Business registration and insurance', 'Registro del negocio y seguro'],
+      short: ['Register the name, open a bank account, set up payments and get insured.', 'Registra el nombre, abre una cuenta bancaria, configura los pagos y consigue seguro.'],
+      week: ['Week 1', 'Semana 1'], cost: ['$60 + $300–$800/yr', '$60 + $300–$800/año'],
+      costLong: ['$60 + insurance $300–$800 per year', '$60 + seguro de $300–$800 al año'],
+      why: ['Register the DeliGran name, keep the money separate, and get insured. Many stores ask for proof of insurance before they put a product on the shelf.',
+        'Registra el nombre DeliGran, separa el dinero del negocio y consigue un seguro. Muchas tiendas piden prueba de seguro antes de poner un producto en el estante.'],
       slides: [
-        { task: 'register', label: 'Register the name “DeliGran”', html: function () {
-          return '<p>Register DeliGran as a <strong>sole proprietorship</strong> name on the Ontario Business Registry, in Arcesio’s name.</p>' +
-            facts([['coin', '$60'], ['calendar', 'Lasts 5 years'], ['id', 'Gives a Business Identification Number (BIN)']]) +
-            tip('A registered name is not trademark protection. A trademark can come later.') +
+        { task: 'register', label: ['Register the name “DeliGran”', 'Registra el nombre “DeliGran”'], html: function () {
+          return '<p>' + L('Register DeliGran as a <strong>sole proprietorship</strong> name on the Ontario Business Registry, in Arcesio’s name.',
+              'Registra DeliGran como nombre de <strong>empresa individual</strong> (sole proprietorship) en el Ontario Business Registry, a nombre de Arcesio.') + '</p>' +
+            facts([['coin', '$60'], ['calendar', L('Lasts 5 years', 'Dura 5 años')], ['id', L('Gives a Business Identification Number (BIN)', 'Da un número de identificación de empresa (BIN)')]]) +
+            tip(L('A registered name is not trademark protection. A trademark can come later.', 'Un nombre registrado no es una marca registrada. La marca puede venir después.')) +
             links([['Ontario Business Registry', 'https://www.ontario.ca/page/ontario-business-registry']]);
         } },
-        { task: 'bank', label: 'Open a separate bank account', html: function () {
-          return '<p>Open a bank account just for DeliGran, so sales and costs stay clean.</p>' +
-            bullets(['Every sale goes into this account.', 'Ingredients, bags and labels are paid from it.']);
+        { task: 'bank', label: ['Open a separate bank account', 'Abre una cuenta bancaria aparte'], html: function () {
+          return '<p>' + L('Open a bank account just for DeliGran, so sales and costs stay clean.', 'Abre una cuenta solo para DeliGran, así las ventas y los gastos quedan claros.') + '</p>' +
+            bullets(lang === 'es'
+              ? ['Cada venta entra a esta cuenta.', 'Los ingredientes, las bolsas y las etiquetas se pagan desde ahí.']
+              : ['Every sale goes into this account.', 'Ingredients, bags and labels are paid from it.']);
         } },
-        { task: 'payments', label: 'Set up invoicing and card payments', html: function () {
-          return '<p>Use a free tool for invoices and card payments. Pick one.</p>' +
+        { task: 'payments', label: ['Set up invoicing and card payments', 'Configura facturas y pagos con tarjeta'], html: function () {
+          const d = L('Invoices and card payments', 'Facturas y pagos con tarjeta');
+          return '<p>' + L('Use a free tool for invoices and card payments. Pick one.', 'Usa una herramienta gratis para facturas y pagos con tarjeta. Escoge una.') + '</p>' +
             '<div class="options">' +
-            '<div class="opt"><strong>' + icon('coin') + 'Square</strong><span>Invoices and card payments</span><a href="https://squareup.com/ca/en" target="_blank" rel="noopener">Open Square' + icon('external') + '</a></div>' +
-            '<div class="opt"><strong>' + icon('file') + 'Wave</strong><span>Invoices and card payments</span><a href="https://www.waveapps.com" target="_blank" rel="noopener">Open Wave' + icon('external') + '</a></div>' +
+            '<div class="opt"><strong>' + icon('coin') + 'Square</strong><span>' + d + '</span><a href="https://squareup.com/ca/en" target="_blank" rel="noopener">' + L('Open Square', 'Abrir Square') + icon('external') + '</a></div>' +
+            '<div class="opt"><strong>' + icon('file') + 'Wave</strong><span>' + d + '</span><a href="https://www.waveapps.com" target="_blank" rel="noopener">' + L('Open Wave', 'Abrir Wave') + icon('external') + '</a></div>' +
             '</div>';
         } },
-        { task: 'insurance', label: 'Get product liability insurance quotes', html: function () {
-          return '<p>Call a local insurance broker and ask for quotes. Use these exact words:</p>' +
-            say('Commercial general liability with products coverage for a home-based food producer.', 'Ask for') +
-            facts([['coin', '$300–$800 per year'], ['shield', 'Stores often want about $2 million in coverage']]) +
-            '<p>Many stores ask for proof of about <strong>$2 million</strong> in coverage before they put a product on the shelf.</p>';
+        { task: 'insurance', label: ['Get product liability insurance quotes', 'Pide cotizaciones de seguro de responsabilidad por productos'], html: function () {
+          return '<p>' + L('Call a local insurance broker and ask for quotes. Use these exact words:', 'Llama a un corredor de seguros local (insurance broker) y pide cotizaciones. Usa estas palabras exactas:') + '</p>' +
+            say('Commercial general liability with products coverage for a home-based food producer.', L('Ask for', 'Pide esto (en inglés)'),
+              lang === 'es' ? 'En español: seguro de responsabilidad civil general con cobertura de productos para un productor de alimentos en casa.' : '') +
+            facts([['coin', L('$300–$800 per year', '$300–$800 al año')], ['shield', L('Stores often want about $2 million in coverage', 'Las tiendas suelen pedir unos $2 millones de cobertura')]]) +
+            '<p>' + L('Many stores ask for proof of about <strong>$2 million</strong> in coverage before they put a product on the shelf.',
+              'Muchas tiendas piden prueba de unos <strong>$2 millones</strong> de cobertura antes de poner un producto en el estante.') + '</p>';
         } },
-        { kicker: 'Good to know', title: 'No HST yet', html: function () {
-          return '<div class="bigstat"><strong>$30,000</strong><span>in sales in a year before HST registration is required</span></div>' +
-            '<p>Until DeliGran passes $30,000 in sales in a year, there is no HST to charge.</p>';
+        { kicker: ['Good to know', 'Dato útil'], title: ['No HST yet', 'Todavía no hay HST'], html: function () {
+          return '<div class="bigstat"><strong>$30,000</strong><span>' + L('in sales in a year before HST registration is required', 'en ventas en un año antes de tener que registrarse para el HST') + '</span></div>' +
+            '<p>' + L('Until DeliGran passes $30,000 in sales in a year, there is no HST to charge.', 'Hasta que DeliGran pase de $30,000 en ventas en un año, no hay que cobrar HST.') + '</p>';
         } }
       ]
     },
     {
-      n: 3, id: 'nutrition', icon: 'table', title: 'Nutrition Facts table',
-      short: 'Weigh the recipe and let label software build the bilingual table.',
-      week: 'Weeks 1–2', cost: '$0–$100',
-      why: 'Stores require a bilingual Nutrition Facts table. No lab is needed: label software calculates it from the recipe.',
+      n: 3, id: 'nutrition', icon: 'table',
+      title: ['Nutrition Facts table', 'Tabla nutricional (Nutrition Facts)'],
+      short: ['Weigh the recipe and let label software build the bilingual table.', 'Pesa la receta y deja que el programa de etiquetas haga la tabla bilingüe.'],
+      week: ['Weeks 1–2', 'Semanas 1–2'], cost: '$0–$100',
+      why: ['Stores require a bilingual Nutrition Facts table. No lab is needed: label software calculates it from the recipe.',
+        'Las tiendas exigen una tabla Nutrition Facts bilingüe. No se necesita laboratorio: el programa de etiquetas la calcula con la receta.'],
       slides: [
-        { task: 'software', label: 'Sign up for label software', html: function () {
-          return '<p>Pick one. A free trial or one month is usually enough.</p>' +
+        { task: 'software', label: ['Sign up for label software', 'Inscríbete en un programa de etiquetas'], html: function () {
+          return '<p>' + L('Pick one. A free trial or one month is usually enough.', 'Escoge uno. Una prueba gratis o un mes suele ser suficiente.') + '</p>' +
             '<div class="options">' +
             '<div class="opt"><strong>' + icon('table') + 'Labelify</strong></div>' +
             '<div class="opt"><strong>' + icon('table') + 'MenuSano</strong></div>' +
             '<div class="opt"><strong>' + icon('table') + 'Food Label Maker</strong></div>' +
-            '</div>' + tip('No lab test is needed. The software calculates the table from your recipe.');
+            '</div>' + tip(L('No lab test is needed. The software calculates the table from your recipe.', 'No se necesita prueba de laboratorio. El programa calcula la tabla con tu receta.'));
         } },
-        { task: 'weigh', label: 'Weigh one full batch in grams', html: function () {
-          return '<p>Use a kitchen scale and write everything down in grams.</p>' +
-            subs('nutrition.weigh', ['Every ingredient, in grams', 'The final weight of the batch after baking']) +
-            tip('Baking removes water, which changes the numbers. That is why the weight after baking matters.');
+        { task: 'weigh', label: ['Weigh one full batch in grams', 'Pesa una tanda completa en gramos'], html: function () {
+          return '<p>' + L('Use a kitchen scale and write everything down in grams.', 'Usa una balanza de cocina y anota todo en gramos.') + '</p>' +
+            subs('nutrition.weigh', lang === 'es'
+              ? ['Cada ingrediente, en gramos', 'El peso final de la tanda después de hornear']
+              : ['Every ingredient, in grams', 'The final weight of the batch after baking']) +
+            tip(L('Baking removes water, which changes the numbers. That is why the weight after baking matters.', 'Al hornear se pierde agua, y eso cambia los números. Por eso importa el peso después de hornear.'));
         } },
-        { task: 'export', label: 'Enter the recipe and export the table', html: function () {
-          return '<p>Type the recipe into the software, then export the <strong>bilingual Nutrition Facts table</strong> as a PDF or SVG file.</p>' +
-            facts([['file', 'PDF or SVG'], ['globe', 'English + French']]) +
-            tip('Keep this file. The designer needs it in Step 6. Each new flavour or bag size needs its own table.');
+        { task: 'export', label: ['Enter the recipe and export the table', 'Ingresa la receta y exporta la tabla'], html: function () {
+          return '<p>' + L('Type the recipe into the software, then export the <strong>bilingual Nutrition Facts table</strong> as a PDF or SVG file.',
+              'Escribe la receta en el programa y exporta la <strong>tabla Nutrition Facts bilingüe</strong> como archivo PDF o SVG.') + '</p>' +
+            facts([['file', L('PDF or SVG', 'PDF o SVG')], ['globe', L('English + French', 'Inglés + francés')]]) +
+            tip(L('Keep this file. The designer needs it in Step 6. Each new flavour or bag size needs its own table.', 'Guarda este archivo. El diseñador lo necesita en el Paso 6. Cada sabor o tamaño de bolsa nuevo necesita su propia tabla.'));
         } },
-        { task: 'highin', label: 'Check if you need a “High in” symbol', html: function () {
-          return '<p>The software also says whether the front of the bag needs a <strong>“High in”</strong> symbol. With honey, maple, panela and coconut, “High in sugars” or “High in saturated fat” is possible.</p>' +
-            tip('Granola may qualify for a <strong>2025 exemption for dense breakfast cereals</strong>. Confirm this before printing.', 'warn');
+        { task: 'highin', label: ['Check if you need a “High in” symbol', 'Revisa si necesitas el símbolo “High in”'], html: function () {
+          return '<p>' + L('The software also says whether the front of the bag needs a <strong>“High in”</strong> symbol. With honey, maple, panela and coconut, “High in sugars” or “High in saturated fat” is possible.',
+              'El programa también dice si el frente de la bolsa necesita un símbolo <strong>“High in”</strong> (alto en). Con miel, maple, panela y coco, es posible “High in sugars” (alto en azúcares) o “High in saturated fat” (alto en grasa saturada).') + '</p>' +
+            tip(L('Granola may qualify for a <strong>2025 exemption for dense breakfast cereals</strong>. Confirm this before printing.',
+              'La granola podría calificar para una <strong>exención de 2025 para cereales de desayuno densos</strong>. Confírmalo antes de imprimir.'), 'warn');
         } }
       ]
     },
     {
-      n: 4, id: 'barcode', icon: 'barcode', title: 'Barcode',
-      short: 'Get an official GS1 barcode for Orange & Coconut 325 g.',
-      week: 'Week 2', cost: 'From $26.25',
-      why: 'Stores scan every product. Most retailers only accept official GS1 barcodes, and each flavour and size needs its own.',
+      n: 4, id: 'barcode', icon: 'barcode',
+      title: ['Barcode', 'Código de barras'],
+      short: ['Get an official GS1 barcode for Orange & Coconut 325 g.', 'Consigue un código de barras oficial GS1 para Orange & Coconut 325 g.'],
+      week: ['Week 2', 'Semana 2'], cost: ['From $26.25', 'Desde $26.25'],
+      why: ['Stores scan every product. Most retailers only accept official GS1 barcodes, and each flavour and size needs its own.',
+        'Las tiendas escanean cada producto. La mayoría solo acepta códigos de barras oficiales de GS1, y cada sabor y tamaño necesita el suyo.'],
       slides: [
-        { task: 'gs1', label: 'Subscribe to GS1 Canada', html: function () {
-          return '<p>Choose the <strong>small business plan</strong>, from $26.25.</p>' +
-            tip('Most retailers only accept GS1 barcodes. Cheap resold barcodes can be duplicates.', 'warn') +
+        { task: 'gs1', label: ['Subscribe to GS1 Canada', 'Suscríbete a GS1 Canada'], html: function () {
+          return '<p>' + L('Choose the <strong>small business plan</strong>, from $26.25.', 'Escoge el <strong>plan para pequeñas empresas</strong> (small business), desde $26.25.') + '</p>' +
+            tip(L('Most retailers only accept GS1 barcodes. Cheap resold barcodes can be duplicates.', 'La mayoría de las tiendas solo acepta códigos GS1. Los códigos revendidos baratos pueden estar duplicados.'), 'warn') +
             links([['GS1 Canada', 'https://www.gs1ca.org']]);
         } },
-        { task: 'gtin', label: 'Assign a barcode number (GTIN)', html: function () {
-          return '<p>Give one barcode number, called a <strong>GTIN</strong>, to this product:</p>' +
+        { task: 'gtin', label: ['Assign a barcode number (GTIN)', 'Asigna un número de código (GTIN)'], html: function () {
+          return '<p>' + L('Give one barcode number, called a <strong>GTIN</strong>, to this product:', 'Dale un número de código de barras, llamado <strong>GTIN</strong>, a este producto:') + '</p>' +
             '<div class="product-chip"><span class="pc-ic">' + icon('pouch') + '</span>Orange &amp; Coconut · 325 g</div>' +
-            '<p>Each flavour and each size gets its own number.</p>';
+            '<p>' + L('Each flavour and each size gets its own number.', 'Cada sabor y cada tamaño lleva su propio número.') + '</p>';
         } },
-        { task: 'download', label: 'Download the official barcode image', html: function () {
-          return '<p>Download the barcode image file from GS1. The designer places it on the back label in Step 6.</p>' +
-            tip('Never let ChatGPT draw the barcode. Only use the official file from GS1.', 'warn');
+        { task: 'download', label: ['Download the official barcode image', 'Descarga la imagen oficial del código'], html: function () {
+          return '<p>' + L('Download the barcode image file from GS1. The designer places it on the back label in Step 6.', 'Descarga el archivo de imagen del código de barras desde GS1. El diseñador lo pone en la etiqueta de atrás en el Paso 6.') + '</p>' +
+            tip(L('Never let ChatGPT draw the barcode. Only use the official file from GS1.', 'Nunca dejes que ChatGPT dibuje el código de barras. Usa solo el archivo oficial de GS1.'), 'warn');
         } },
-        { task: 'scan', label: 'Scan the printed barcode', title: 'Test it after printing', html: function () {
-          return '<p>When the labels arrive, scan the barcode with a phone barcode app and check that it reads.</p>' +
-            '<div class="scan" aria-hidden="true"><div class="bars"></div><div class="scan-cap">EXAMPLE</div><div class="scan-line"></div></div>';
+        { task: 'scan', label: ['Scan the printed barcode', 'Escanea el código impreso'], title: ['Test it after printing', 'Pruébalo después de imprimir'], html: function () {
+          return '<p>' + L('When the labels arrive, scan the barcode with a phone barcode app and check that it reads.', 'Cuando lleguen las etiquetas, escanea el código con una app de códigos de barras en el celular y revisa que lo lea.') + '</p>' +
+            '<div class="scan" aria-hidden="true"><div class="bars"></div><div class="scan-cap">' + L('EXAMPLE', 'EJEMPLO') + '</div><div class="scan-line"></div></div>';
         } }
       ]
     },
     {
-      n: 5, id: 'label-content', icon: 'languages', title: 'Label content in English and French',
-      short: 'Everything the front and back labels must say, in both languages.',
-      week: 'Week 3', cost: 'No cost',
-      why: 'All mandatory information must be in English and French. The DeliGran brand and the tagline can stay English only.',
+      n: 5, id: 'label-content', icon: 'languages',
+      title: ['Label content in English and French', 'Texto de la etiqueta en inglés y francés'],
+      short: ['Everything the front and back labels must say, in both languages.', 'Todo lo que deben decir las etiquetas de frente y de atrás, en los dos idiomas.'],
+      week: ['Week 3', 'Semana 3'], cost: ['No cost', 'Sin costo'],
+      why: ['All mandatory information must be in English and French. The DeliGran brand and the tagline can stay English only.',
+        'Toda la información obligatoria debe estar en inglés y en francés. La marca DeliGran y el eslogan pueden quedar solo en inglés.'],
       slides: [
-        { task: 'front', label: 'Check the front label', kicker: 'Principal display panel', title: 'Front label', html: function () {
+        { task: 'front', label: ['Check the front label', 'Revisa la etiqueta del frente'], kicker: ['Principal display panel', 'Panel principal'], title: ['Front label', 'Etiqueta del frente'], html: function () {
           return '<div class="label-row">' +
             '<figure class="lm-fig"><div class="lm" aria-hidden="true">' +
-              '<div class="lm-top"><span class="lm-logo">DeliGran</span><span class="lm-sq">1 × 1 in<br>empty</span></div>' +
+              '<div class="lm-top"><span class="lm-logo">DeliGran</span><span class="lm-sq">1 × 1 in<br>' + L('empty', 'vacío') + '</span></div>' +
               '<span class="lm-tag">Deliciously Crunchy. Naturally Good.</span>' +
               '<span class="lm-banner">Orange &amp; Coconut Granola</span>' +
               '<span class="lm-fr">Granola à l’orange et à la noix de coco</span>' +
               '<span class="lm-small">Naturally Sweetened</span>' +
               '<div class="lm-art"><span class="lm-orange"></span><span class="lm-granola"><i></i><i></i><i></i><i></i><i></i><i></i></span><span class="lm-coco"></span></div>' +
               '<span class="lm-net">325 g</span>' +
-            '</div><figcaption>Front label, 4 × 6 in. The empty square leaves room for a “High in” symbol.</figcaption></figure>' +
+            '</div><figcaption>' + L('Front label, 4 × 6 in. The empty square leaves room for a “High in” symbol.', 'Etiqueta del frente, 4 × 6 pulgadas. El cuadro vacío deja espacio para un símbolo “High in”.') + '</figcaption></figure>' +
             '<ul class="kv">' +
-              '<li><span>Brand</span><strong>DeliGran</strong></li>' +
-              '<li><span>Common name</span><strong>Orange &amp; Coconut Granola<br>Granola à l’orange et à la noix de coco</strong></li>' +
-              '<li><span>Net quantity</span><strong>325 g</strong></li>' +
-              '<li><span>“High in” symbol</span><strong>If required, in the upper half of the front</strong></li>' +
-              '<li><span>Optional</span><strong>Deliciously Crunchy. Naturally Good. <em>/</em> Naturally Sweetened</strong></li>' +
+              '<li><span>' + L('Brand', 'Marca') + '</span><strong>DeliGran</strong></li>' +
+              '<li><span>' + L('Common name', 'Nombre común') + '</span><strong>Orange &amp; Coconut Granola<br>Granola à l’orange et à la noix de coco</strong></li>' +
+              '<li><span>' + L('Net quantity', 'Cantidad neta') + '</span><strong>325 g</strong></li>' +
+              '<li><span>' + L('“High in” symbol', 'Símbolo “High in”') + '</span><strong>' + L('If required, in the upper half of the front', 'Si se requiere, en la mitad de arriba del frente') + '</strong></li>' +
+              '<li><span>' + L('Optional', 'Opcional') + '</span><strong>Deliciously Crunchy. Naturally Good. <em>/</em> Naturally Sweetened</strong></li>' +
             '</ul></div>';
         } },
-        { task: 'back', label: 'Fill in the back label', title: 'Back label', html: function () {
-          return '<p>All of this goes on the back, in English and French. Tap Copy to grab the exact text.</p>' +
+        { task: 'back', label: ['Fill in the back label', 'Completa la etiqueta de atrás'], title: ['Back label', 'Etiqueta de atrás'], html: function () {
+          return '<p>' + L('All of this goes on the back, in English and French. Tap Copy to grab the exact text.', 'Todo esto va atrás, en inglés y en francés. Toca Copiar para tomar el texto exacto.') + '</p>' +
             '<div class="fields">' +
-            biField('Ingredients', 'Ingredients: Oats, coconut, orange, raisins, peanuts, almonds, sugars (maple syrup, panela [unrefined cane sugar], honey), salt.', 'Ingrédients : Flocons d\'avoine, noix de coco, orange, raisins secs, arachides, amandes, sucres (sirop d\'érable, panela [sucre de canne non raffiné], miel), sel.') +
-            biField('Allergens', 'Contains: Peanuts, almonds.', 'Contient : Arachides, amandes.') +
-            oneField('Nutrition', 'Nutrition Facts table from the software (already bilingual)') +
-            oneField('Business', 'DeliGran, [business address], Leamington, ON [postal code]') +
-            oneField('Date and lot', 'Best before / Meilleur avant + lot number') +
-            oneField('Barcode', 'GS1 barcode') +
-            '</div>' + tip('Fill in the business address and postal code before the designer starts.');
+            biField(L('Ingredients', 'Ingredientes'), 'Ingredients: Oats, coconut, orange, raisins, peanuts, almonds, sugars (maple syrup, panela [unrefined cane sugar], honey), salt.', 'Ingrédients : Flocons d\'avoine, noix de coco, orange, raisins secs, arachides, amandes, sucres (sirop d\'érable, panela [sucre de canne non raffiné], miel), sel.') +
+            biField(L('Allergens', 'Alérgenos'), 'Contains: Peanuts, almonds.', 'Contient : Arachides, amandes.') +
+            oneField(L('Nutrition', 'Nutrición'), L('Nutrition Facts table from the software (already bilingual)', 'Tabla Nutrition Facts del programa (ya es bilingüe)')) +
+            oneField(L('Business', 'Negocio'), 'DeliGran, [business address], Leamington, ON [postal code]') +
+            oneField(L('Date and lot', 'Fecha y lote'), L('Best before / Meilleur avant + lot number', 'Best before / Meilleur avant + número de lote')) +
+            oneField(L('Barcode', 'Código de barras'), L('GS1 barcode', 'Código de barras GS1')) +
+            '</div>' + tip(L('Fill in the business address and postal code before the designer starts.', 'Completa la dirección del negocio y el código postal antes de que empiece el diseñador.'));
         } },
-        { task: 'ingredients', label: 'Check the ingredient list', html: function () {
-          return '<p>Go through these with the real recipe in front of you.</p>' +
-            subs('label-content.ingredients', [
+        { task: 'ingredients', label: ['Check the ingredient list', 'Revisa la lista de ingredientes'], html: function () {
+          return '<p>' + L('Go through these with the real recipe in front of you.', 'Revisa esto con la receta real enfrente.') + '</p>' +
+            subs('label-content.ingredients', lang === 'es' ? [
+              '<strong>Azúcares entre paréntesis.</strong> El jarabe de maple, la panela y la miel van agrupados entre paréntesis después de “Sugars”. El grupo va donde lo ponga el peso combinado de los tres.',
+              '<strong>Orden por peso.</strong> Los ingredientes van de mayor a menor peso. Confirma el orden con la receta real.',
+              '<strong>Nombra la naranja.</strong> Escribe la forma que de verdad usas: ralladura de naranja (orange zest), cáscara de naranja seca (dried orange peel) o jugo de naranja (orange juice).'
+            ] : [
               '<strong>Sugars in brackets.</strong> Maple syrup, panela and honey are grouped in brackets after “Sugars”. The group goes where the combined weight of the three puts it.',
               '<strong>Order by weight.</strong> Ingredients go from most to least by weight. Confirm the order with the real recipe.',
               '<strong>Name the orange.</strong> Write the form actually used: orange zest, dried orange peel, or orange juice.'
             ]);
         } },
-        { task: 'shelflife', label: 'Test the shelf life', html: function () {
-          return '<p>A best-before date is only legally required for a shelf life of 90 days or less, but <strong>stores expect one</strong>.</p>' +
-            '<p>Seal a bag and check how long the granola stays crunchy. Use that to set the best-before date.</p>' +
-            facts([['calendar', 'Best before / Meilleur avant'], ['tag', 'Printed next to the lot number']]);
+        { task: 'shelflife', label: ['Test the shelf life', 'Prueba cuánto dura'], html: function () {
+          return '<p>' + L('A best-before date is only legally required for a shelf life of 90 days or less, but <strong>stores expect one</strong>.',
+              'La fecha “best before” (consumir preferentemente antes de) solo es obligatoria por ley si el producto dura 90 días o menos, pero <strong>las tiendas esperan una</strong>.') + '</p>' +
+            '<p>' + L('Seal a bag and check how long the granola stays crunchy. Use that to set the best-before date.', 'Sella una bolsa y revisa cuánto tiempo sigue crocante la granola. Usa eso para poner la fecha.') + '</p>' +
+            facts([['calendar', 'Best before / Meilleur avant'], ['tag', L('Printed next to the lot number', 'Impresa junto al número de lote')]]);
         } }
       ]
     },
     {
-      n: 6, id: 'label-print', icon: 'printer', title: 'Label design and printing',
-      short: 'Front art, a designer, and about 300 printed label sets.',
-      week: 'Weeks 3–4', cost: '$200–$450', costLong: '$50–$150 design + $150–$300 printing',
-      why: 'The bag stays a plain kraft stand-up pouch with two printed labels: front and back.',
+      n: 6, id: 'label-print', icon: 'printer',
+      title: ['Label design and printing', 'Diseño e impresión de etiquetas'],
+      short: ['Front art, a designer, and about 300 printed label sets.', 'Arte del frente, un diseñador y unos 300 juegos de etiquetas impresas.'],
+      week: ['Weeks 3–4', 'Semanas 3–4'], cost: '$200–$450',
+      costLong: ['$50–$150 design + $150–$300 printing', '$50–$150 diseño + $150–$300 impresión'],
+      why: ['The bag stays a plain kraft stand-up pouch with two printed labels: front and back.',
+        'La bolsa sigue siendo una bolsa kraft sencilla de pie (stand-up pouch) con dos etiquetas impresas: frente y atrás.'],
       slides: [
-        { kicker: 'How it fits together', title: 'Five pieces make the labels', html: function () {
-          return '<p>Each piece comes from a different place. The designer puts them together.</p>' +
+        { kicker: ['How it fits together', 'Cómo encaja todo'], title: ['Five pieces make the labels', 'Cinco piezas hacen las etiquetas'], html: function () {
+          function row(n, who, what) { return '<li><span class="flow-n">' + n + '</span><div><strong>' + who + '</strong><span>' + what + '</span></div></li>'; }
+          return '<p>' + L('Each piece comes from a different place. The designer puts them together.', 'Cada pieza viene de un lugar distinto. El diseñador las une.') + '</p>' +
             '<ol class="flow">' +
-            '<li><span class="flow-n">1</span><div><strong>ChatGPT</strong><span>Front artwork only</span></div></li>' +
-            '<li><span class="flow-n">2</span><div><strong>Label software</strong><span>The Nutrition Facts table file</span></div></li>' +
-            '<li><span class="flow-n">3</span><div><strong>GS1</strong><span>The barcode file</span></div></li>' +
-            '<li><span class="flow-n">4</span><div><strong>Designer</strong><span>Print-ready front and back labels</span></div></li>' +
-            '<li><span class="flow-n">5</span><div><strong>Printer</strong><span>Front and back labels, ordered together</span></div></li>' +
+            row(1, 'ChatGPT', L('Front artwork only', 'Solo el arte del frente')) +
+            row(2, L('Label software', 'Programa de etiquetas'), L('The Nutrition Facts table file', 'El archivo de la tabla Nutrition Facts')) +
+            row(3, 'GS1', L('The barcode file', 'El archivo del código de barras')) +
+            row(4, L('Designer', 'Diseñador'), L('Print-ready front and back labels', 'Etiquetas de frente y atrás listas para imprimir')) +
+            row(5, L('Printer', 'Imprenta'), L('Front and back labels, ordered together', 'Etiquetas de frente y atrás, pedidas juntas')) +
             '</ol>';
         } },
-        { task: 'art', label: 'Create the front artwork with ChatGPT', title: 'Create the front artwork', html: function () {
+        { task: 'art', label: ['Create the front artwork with ChatGPT', 'Crea el arte del frente con ChatGPT'], title: ['Create the front artwork', 'Crea el arte del frente'], html: function () {
           const id = nid();
-          return '<p>In ChatGPT, upload the DeliGran logo and the reference design. Then paste this prompt.</p>' +
-            '<div class="block"><div class="block-head"><span class="mini-label">ChatGPT prompt</span><button type="button" class="copy" data-copy="' + id + '">' + icon('copy') + '<span>Copy prompt</span></button></div>' +
-            '<pre class="prompt" id="' + id + '">' + esc(PROMPT) + '</pre></div>' +
-            tip('Check every word, including the French accents, before you send the art to the designer.');
+          return '<p>' + L('In ChatGPT, upload the DeliGran logo and the reference design. Then paste this prompt.', 'En ChatGPT, sube el logo de DeliGran y el diseño de referencia. Luego pega este texto (prompt).') + '</p>' +
+            '<div class="block"><div class="block-head"><span class="mini-label">' + L('ChatGPT prompt', 'Prompt para ChatGPT') + '</span>' + copyBtn(id, L('Copy prompt', 'Copiar prompt')) + '</div>' +
+            '<pre class="prompt" id="' + id + '" lang="en">' + esc(PROMPT) + '</pre></div>' +
+            tip(L('Check every word, including the French accents, before you send the art to the designer.',
+              'El prompt está en inglés a propósito, porque el texto de la etiqueta va en inglés y francés. Revisa cada palabra, incluidos los acentos en francés, antes de enviar el arte al diseñador.'));
         } },
-        { task: 'files', label: 'Collect the table and barcode files', title: 'Collect the two files', html: function () {
-          return '<p>The designer needs these along with the front art.</p>' +
-            subs('label-print.files', ['Nutrition Facts table file (PDF or SVG) from Step 3', 'Official barcode file from GS1 (Step 4)']);
+        { task: 'files', label: ['Collect the table and barcode files', 'Reúne los archivos de la tabla y del código'], title: ['Collect the two files', 'Reúne los dos archivos'], html: function () {
+          return '<p>' + L('The designer needs these along with the front art.', 'El diseñador los necesita junto con el arte del frente.') + '</p>' +
+            subs('label-print.files', lang === 'es'
+              ? ['Archivo de la tabla Nutrition Facts (PDF o SVG) del Paso 3', 'Archivo oficial del código de barras de GS1 (Paso 4)']
+              : ['Nutrition Facts table file (PDF or SVG) from Step 3', 'Official barcode file from GS1 (Step 4)']);
         } },
-        { task: 'designer', label: 'Hire a designer', html: function () {
-          return '<p>Find a designer on Fiverr or Upwork. Budget <strong>$50–$150</strong>. The designer:</p>' +
-            bullets(['Assembles the front and back labels as print-ready PDFs', 'Checks minimum text sizes', 'Places the barcode and the “High in” symbol at the right size']) +
+        { task: 'designer', label: ['Hire a designer', 'Contrata a un diseñador'], html: function () {
+          return '<p>' + L('Find a designer on Fiverr or Upwork. Budget <strong>$50–$150</strong>. The designer:', 'Busca un diseñador en Fiverr o Upwork. Presupuesto: <strong>$50–$150</strong>. El diseñador:') + '</p>' +
+            bullets(lang === 'es'
+              ? ['Arma las etiquetas de frente y atrás como PDF listos para imprimir', 'Revisa los tamaños mínimos de letra', 'Pone el código de barras y el símbolo “High in” del tamaño correcto']
+              : ['Assembles the front and back labels as print-ready PDFs', 'Checks minimum text sizes', 'Places the barcode and the “High in” symbol at the right size']) +
             links([['Fiverr', 'https://www.fiverr.com'], ['Upwork', 'https://www.upwork.com']]);
         } },
-        { task: 'print', label: 'Order the labels', title: 'Print the labels', html: function () {
-          return '<p>Order the front and back labels together, about <strong>300 sets</strong>.</p>' +
-            facts([['coin', '$150–$300'], ['layers', 'About 300 sets']]) +
+        { task: 'print', label: ['Order the labels', 'Pide las etiquetas'], title: ['Print the labels', 'Imprime las etiquetas'], html: function () {
+          return '<p>' + L('Order the front and back labels together, about <strong>300 sets</strong>.', 'Pide las etiquetas de frente y atrás juntas, unos <strong>300 juegos</strong>.') + '</p>' +
+            facts([['coin', '$150–$300'], ['layers', L('About 300 sets', 'Unos 300 juegos')]]) +
             links([['Sticker Mule', 'https://www.stickermule.com'], ['StickerApp', 'https://www.stickerapp.com'], ['VistaPrint.ca', 'https://www.vistaprint.ca']]) +
-            tip('When the labels arrive, scan the barcode with your phone (Step 4).');
+            tip(L('When the labels arrive, scan the barcode with your phone (Step 4).', 'Cuando lleguen las etiquetas, escanea el código de barras con el celular (Paso 4).'));
         } }
       ]
     },
     {
-      n: 7, id: 'batch-log', icon: 'book', title: 'Batch log',
-      short: 'Write down every batch so any problem can be traced.',
-      week: 'Week 4', cost: 'No cost',
-      why: 'Selling only within Ontario doesn’t require a federal food licence. Selling to stores in other provinces, or online across Canada, would. Either way, keep a simple batch log so any problem can be traced and recalled.',
+      n: 7, id: 'batch-log', icon: 'book',
+      title: ['Batch log', 'Registro de lotes'],
+      short: ['Write down every batch so any problem can be traced.', 'Anota cada tanda para poder rastrear cualquier problema.'],
+      week: ['Week 4', 'Semana 4'], cost: ['No cost', 'Sin costo'],
+      why: ['Selling only within Ontario doesn’t require a federal food licence. Selling to stores in other provinces, or online across Canada, would. Either way, keep a simple batch log so any problem can be traced and recalled.',
+        'Vender solo dentro de Ontario no requiere licencia federal de alimentos. Vender a tiendas de otras provincias, o en línea en todo Canadá, sí. De todas formas, lleva un registro de lotes sencillo para poder rastrear y retirar cualquier producto con problemas.'],
       slides: [
-        { task: 'setup', label: 'Start the batch log', html: function () {
-          return '<p>Use a notebook or a spreadsheet with these columns. Fill in one row for every batch.</p>' +
-            '<div class="table-wrap"><table><thead><tr>' + BATCH_COLS.map(function (c) { return '<th scope="col">' + c + '</th>'; }).join('') + '</tr></thead>' +
-            '<tbody><tr><td class="lotcell">261115</td><td>Nov 15, 2026</td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td></tr></tbody></table></div>' +
-            '<div><button type="button" class="copy" data-copy-key="batchCols">' + icon('copy') + '<span>Copy columns for a spreadsheet</span></button></div>' +
-            tip('The lot number is year, month, day. <strong>261115</strong> means 2026, November 15.');
+        { task: 'setup', label: ['Start the batch log', 'Empieza el registro de lotes'], html: function () {
+          return '<p>' + L('Use a notebook or a spreadsheet with these columns. Fill in one row for every batch.', 'Usa un cuaderno o una hoja de cálculo con estas columnas. Llena una fila por cada tanda.') + '</p>' +
+            '<div class="table-wrap"><table><thead><tr>' + BATCH_COLS.map(function (c) { return '<th scope="col">' + tx(c) + '</th>'; }).join('') + '</tr></thead>' +
+            '<tbody><tr><td class="lotcell">261115</td><td>' + L('Nov 15, 2026', '15 nov 2026') + '</td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td></tr></tbody></table></div>' +
+            '<div><button type="button" class="copy" data-copy-key="batchCols">' + icon('copy') + '<span>' + L('Copy columns for a spreadsheet', 'Copiar columnas para una hoja de cálculo') + '</span></button></div>' +
+            tip(L('The lot number is year, month, day. <strong>261115</strong> means 2026, November 15.', 'El número de lote es año, mes, día. <strong>261115</strong> significa 2026, 15 de noviembre.'));
         } },
-        { task: 'lot', label: 'Print the lot number on each bag', html: function () {
-          return '<p>Put the lot number on every bag, next to the best-before date. Pick the day the batch was made:</p>' +
-            '<div class="lot"><label for="lot-date">Date made<input type="date" id="lot-date"></label>' +
-            '<div class="lot-out"><strong id="lot-out">——————</strong><small>YY · MM · DD</small></div></div>';
+        { task: 'lot', label: ['Print the lot number on each bag', 'Imprime el número de lote en cada bolsa'], html: function () {
+          return '<p>' + L('Put the lot number on every bag, next to the best-before date. Pick the day the batch was made:', 'Pon el número de lote en cada bolsa, junto a la fecha best before. Escoge el día en que hiciste la tanda:') + '</p>' +
+            '<div class="lot"><label for="lot-date">' + L('Date made', 'Fecha de elaboración') + '<input type="date" id="lot-date"></label>' +
+            '<div class="lot-out"><strong id="lot-out">——————</strong><small>' + L('YY · MM · DD', 'AA · MM · DD') + '</small></div></div>';
         }, mount: function (root) {
           const inp = $('#lot-date', root), out = $('#lot-out', root);
           inp.value = todayISO();
@@ -1176,28 +1289,30 @@ a { color: var(--leaf-ink); }
       ]
     },
     {
-      n: 8, id: 'pricing', icon: 'tag', title: 'Pricing for stores',
-      short: 'Set a wholesale price that leaves the store its margin.',
-      week: 'Week 4', cost: 'No cost',
-      why: 'Stores need their own margin, usually 30–40%. Work backwards from the shelf price.',
+      n: 8, id: 'pricing', icon: 'tag',
+      title: ['Pricing for stores', 'Precios para tiendas'],
+      short: ['Set a wholesale price that leaves the store its margin.', 'Pon un precio al por mayor que le deje su margen a la tienda.'],
+      week: ['Week 4', 'Semana 4'], cost: ['No cost', 'Sin costo'],
+      why: ['Stores need their own margin, usually 30–40%. Work backwards from the shelf price.',
+        'Las tiendas necesitan su propio margen, normalmente 30–40%. Calcula hacia atrás desde el precio en el estante.'],
       slides: [
-        { task: 'realcost', label: 'Fill in the real ingredient cost', kicker: 'Price calculator', title: 'Work backwards from the shelf price', html: function () {
-          function f(key, label, hint) {
-            return '<div class="field"><label for="price-' + key + '">' + label + '</label><div class="money"><span>$</span><input type="number" inputmode="decimal" step="0.01" min="0" id="price-' + key + '" data-price="' + key + '"></div>' + (hint ? '<small>' + hint + '</small>' : '') + '</div>';
+        { task: 'realcost', label: ['Fill in the real ingredient cost', 'Pon el costo real de los ingredientes'], kicker: ['Price calculator', 'Calculadora de precios'], title: ['Work backwards from the shelf price', 'Calcula hacia atrás desde el precio en el estante'], html: function () {
+          function f(key, label, hintText) {
+            return '<div class="field"><label for="price-' + key + '">' + label + '</label><div class="money"><span>$</span><input type="number" inputmode="decimal" step="0.01" min="0" id="price-' + key + '" data-price="' + key + '"></div>' + (hintText ? '<small>' + hintText + '</small>' : '') + '</div>';
           }
-          return '<p>Put in the real ingredient cost from one batch, per bag. The numbers below start with the plan’s examples.</p>' +
+          return '<p>' + L('Put in the real ingredient cost from one batch, per bag. The numbers below start with the plan’s examples.', 'Pon el costo real de ingredientes de una tanda, por bolsa. Los números empiezan con los ejemplos del plan.') + '</p>' +
             '<div class="calc"><div class="calc-in">' +
-            f('ingredients', 'Ingredients, per bag') +
-            f('packaging', 'Bag + 2 labels') +
-            f('wholesale', 'Wholesale price (what the store pays)') +
-            f('shelf', 'Store shelf price', 'The plan suggests $9.99–$10.99') +
-            '<button type="button" class="calc-reset" data-reset-prices>Use the plan’s example numbers</button>' +
+            f('ingredients', L('Ingredients, per bag', 'Ingredientes, por bolsa')) +
+            f('packaging', L('Bag + 2 labels', 'Bolsa + 2 etiquetas')) +
+            f('wholesale', L('Wholesale price (what the store pays)', 'Precio al por mayor (lo que paga la tienda)')) +
+            f('shelf', L('Store shelf price', 'Precio en el estante de la tienda'), L('The plan suggests $9.99–$10.99', 'El plan sugiere $9.99–$10.99')) +
+            '<button type="button" class="calc-reset" data-reset-prices>' + L('Use the plan’s example numbers', 'Usar los números de ejemplo del plan') + '</button>' +
             '</div><div class="results" aria-live="polite">' +
-            '<div class="r-row"><span>Cost per bag</span><b data-out="cost"></b></div>' +
-            '<div class="r-big"><small>Profit per bag for DeliGran</small><strong data-out="profit"></strong></div>' +
-            '<div class="r-row"><span>Store margin</span><b data-out="margin"></b></div>' +
+            '<div class="r-row"><span>' + L('Cost per bag', 'Costo por bolsa') + '</span><b data-out="cost"></b></div>' +
+            '<div class="r-big"><small>' + L('Profit per bag for DeliGran', 'Ganancia por bolsa para DeliGran') + '</small><strong data-out="profit"></strong></div>' +
+            '<div class="r-row"><span>' + L('Store margin', 'Margen de la tienda') + '</span><b data-out="margin"></b></div>' +
             '<div class="meter"><span class="band"></span><span class="marker" data-out="marker"></span></div>' +
-            '<div class="meter-scale"><span>0%</span><span>30–40% target</span><span>60%</span></div>' +
+            '<div class="meter-scale"><span>0%</span><span>' + L('30–40% target', 'meta 30–40%') + '</span><span>60%</span></div>' +
             '<div class="m-status" data-out="status"></div>' +
             '</div></div>';
         }, mount: function (root) {
@@ -1210,10 +1325,10 @@ a { color: var(--leaf-ink); }
             $('[data-out="margin"]', root).textContent = pct + '%';
             $('[data-out="marker"]', root).style.left = Math.max(0, Math.min(100, n.margin * 100 / 60 * 100)) + '%';
             let s;
-            if (n.profit < 0) s = 'You lose money on each bag. Raise the wholesale price or lower costs.';
-            else if (pct < 30) s = 'The store keeps less than the usual 30–40%.';
-            else if (pct > 40) s = 'The store keeps more than the usual 30–40%.';
-            else s = 'Inside the usual 30–40% store margin.';
+            if (n.profit < 0) s = L('You lose money on each bag. Raise the wholesale price or lower costs.', 'Pierdes dinero en cada bolsa. Sube el precio al por mayor o baja los costos.');
+            else if (pct < 30) s = L('The store keeps less than the usual 30–40%.', 'La tienda se queda con menos del 30–40% habitual.');
+            else if (pct > 40) s = L('The store keeps more than the usual 30–40%.', 'La tienda se queda con más del 30–40% habitual.');
+            else s = L('Inside the usual 30–40% store margin.', 'Dentro del margen habitual de 30–40% para la tienda.');
             $('[data-out="status"]', root).textContent = s;
           }
           inputs.forEach(function (inp) {
@@ -1226,66 +1341,73 @@ a { color: var(--leaf-ink); }
           $('[data-reset-prices]', root).addEventListener('click', function () { Object.assign(state.prices, DEFAULT_PRICES); save(); fill(); upd(); });
           fill(); upd();
         } },
-        { task: 'directprice', label: 'Match your direct price to the shelf price', html: function () {
-          return '<p>When you sell directly to customers, charge the same as the store shelf price, so stores aren’t undercut.</p>' +
-            '<div class="bigstat"><strong>' + money(state.prices.shelf) + '</strong><span>Your direct-sale price, same as the store shelf price</span></div>' +
-            tip('This number comes from the calculator on the first slide of this step.');
+        { task: 'directprice', label: ['Match your direct price to the shelf price', 'Cobra lo mismo que el precio en el estante'], html: function () {
+          return '<p>' + L('When you sell directly to customers, charge the same as the store shelf price, so stores aren’t undercut.', 'Cuando vendas directamente a clientes, cobra lo mismo que el precio en el estante, para no venderle más barato que la tienda.') + '</p>' +
+            '<div class="bigstat"><strong>' + money(state.prices.shelf) + '</strong><span>' + L('Your direct-sale price, same as the store shelf price', 'Tu precio de venta directa, igual al precio en el estante') + '</span></div>' +
+            tip(L('This number comes from the calculator on the first slide of this step.', 'Este número viene de la calculadora en la primera diapositiva de este paso.'));
         } },
-        { task: 'cases', label: 'Sell in cases of 6 bags', html: function () {
+        { task: 'cases', label: ['Sell in cases of 6 bags', 'Vende en cajas de 6 bolsas'], html: function () {
           const n = priceNumbers(); let bags = '';
           for (let i = 0; i < 6; i++) bags += '<span class="bag" style="--i:' + i + '"></span>';
-          return '<p>Stores order by the case. One case is 6 bags.</p>' +
+          return '<p>' + L('Stores order by the case. One case is 6 bags.', 'Las tiendas piden por caja. Una caja trae 6 bolsas.') + '</p>' +
             '<div class="case-wrap"><div class="case" aria-hidden="true">' + bags + '</div>' +
-            '<div class="case-stats"><div class="case-stat"><strong>' + money(n.casePay) + '</strong><span>The store pays per case</span></div>' +
-            '<div class="case-stat"><strong>' + money(n.caseProfit) + '</strong><span>Your profit per case</span></div></div></div>';
+            '<div class="case-stats"><div class="case-stat"><strong>' + money(n.casePay) + '</strong><span>' + L('The store pays per case', 'Lo que paga la tienda por caja') + '</span></div>' +
+            '<div class="case-stat"><strong>' + money(n.caseProfit) + '</strong><span>' + L('Your profit per case', 'Tu ganancia por caja') + '</span></div></div></div>';
         } },
-        { task: 'terms', label: 'Offer easy terms to the first stores', html: function () {
-          return '<p>For the first small stores, make it easy to say yes. Offer one of these:</p>' +
+        { task: 'terms', label: ['Offer easy terms to the first stores', 'Ofrece condiciones fáciles a las primeras tiendas'], html: function () {
+          return '<p>' + L('For the first small stores, make it easy to say yes. Offer one of these:', 'Para las primeras tiendas pequeñas, facilita que digan que sí. Ofrece una de estas:') + '</p>' +
             '<div class="options">' +
-            '<div class="opt"><strong>' + icon('refresh') + 'Consignment</strong><span>You get paid for what sells.</span></div>' +
-            '<div class="opt"><strong>' + icon('coin') + 'Cash on delivery</strong><span>The store pays when the case arrives.</span></div>' +
+            '<div class="opt"><strong>' + icon('refresh') + L('Consignment', 'Consignación') + '</strong><span>' + L('You get paid for what sells.', 'Te pagan por lo que se vende.') + '</span></div>' +
+            '<div class="opt"><strong>' + icon('coin') + L('Cash on delivery', 'Pago contra entrega') + '</strong><span>' + L('The store pays when the case arrives.', 'La tienda paga cuando llega la caja.') + '</span></div>' +
             '</div>';
         } }
       ]
     },
     {
-      n: 9, id: 'sales', icon: 'store', title: 'Sales kit and first stores',
-      short: 'Sell sheet, samples, and pitches to your first 5 stores.',
-      week: 'Weeks 4–6', cost: '$0–$50',
-      why: 'Pitch Latino grocery stores in Leamington first, where the customers already shop. Big chains come later; they require third-party food safety audits.',
+      n: 9, id: 'sales', icon: 'store',
+      title: ['Sales kit and first stores', 'Kit de ventas y primeras tiendas'],
+      short: ['Sell sheet, samples, and pitches to your first 5 stores.', 'Hoja de ventas, muestras y visitas a tus primeras 5 tiendas.'],
+      week: ['Weeks 4–6', 'Semanas 4–6'], cost: '$0–$50',
+      why: ['Pitch Latino grocery stores in Leamington first, where the customers already shop. Big chains come later; they require third-party food safety audits.',
+        'Visita primero los supermercados latinos de Leamington, donde ya compran los clientes. Las grandes cadenas vienen después; exigen auditorías de inocuidad alimentaria de terceros.'],
       slides: [
-        { task: 'sellsheet', label: 'Make a one-page sell sheet', html: function () {
-          return '<p>One page a store owner can keep. Include:</p>' +
-            subs('sales.sellsheet', ['Product photo', 'Flavour', '325 g', 'Case of 6', 'Wholesale price', 'Suggested shelf price', 'Shelf life', 'Barcode number', 'Contact'], 'cols');
+        { task: 'sellsheet', label: ['Make a one-page sell sheet', 'Haz una hoja de ventas de una página'], html: function () {
+          return '<p>' + L('One page a store owner can keep. Include:', 'Una página que el dueño de la tienda pueda guardar. Incluye:') + '</p>' +
+            subs('sales.sellsheet', lang === 'es'
+              ? ['Foto del producto', 'Sabor', '325 g', 'Caja de 6', 'Precio al por mayor', 'Precio sugerido en el estante', 'Vida útil', 'Número del código de barras', 'Contacto']
+              : ['Product photo', 'Flavour', '325 g', 'Case of 6', 'Wholesale price', 'Suggested shelf price', 'Shelf life', 'Barcode number', 'Contact'], 'cols');
         } },
-        { task: 'samples', label: 'Pack samples', html: function () {
-          return '<p>Bring two bags to every store.</p>' +
-            subs('sales.samples', ['One open bag for tasting', 'One sealed bag to leave']);
+        { task: 'samples', label: ['Pack samples', 'Prepara muestras'], html: function () {
+          return '<p>' + L('Bring two bags to every store.', 'Lleva dos bolsas a cada tienda.') + '</p>' +
+            subs('sales.samples', lang === 'es'
+              ? ['Una bolsa abierta para probar', 'Una bolsa sellada para dejar']
+              : ['One open bag for tasting', 'One sealed bag to leave']);
         } },
-        { task: 'invoice', label: 'Make an invoice template', html: function () {
-          return '<p>Set up an invoice template in Square or Wave, the tool you picked in Step 2.</p>' +
+        { task: 'invoice', label: ['Make an invoice template', 'Haz una plantilla de factura'], html: function () {
+          return '<p>' + L('Set up an invoice template in Square or Wave, the tool you picked in Step 2.', 'Crea una plantilla de factura en Square o Wave, la herramienta que escogiste en el Paso 2.') + '</p>' +
             links([['Square', 'https://squareup.com/ca/en'], ['Wave', 'https://www.waveapps.com']]);
         } },
-        { kicker: 'What to say', title: 'Your short pitch', html: function () {
+        { kicker: ['What to say', 'Qué decir'], title: ['Your short pitch', 'Tu presentación corta'], html: function () {
           const shelf = '<mark class="hl">' + money(state.prices.shelf) + '</mark>';
           const whole = '<mark class="hl">' + money(state.prices.wholesale) + '</mark>';
           const es = nid(), en = nid();
-          return '<div class="tabs" role="tablist" aria-label="Pitch language">' +
+          return '<div class="tabs" role="tablist" aria-label="' + L('Pitch language', 'Idioma de la presentación') + '">' +
             '<button type="button" class="tab" role="tab" data-tab="es" aria-selected="' + (pitchLang === 'es') + '">Español</button>' +
             '<button type="button" class="tab" role="tab" data-tab="en" aria-selected="' + (pitchLang === 'en') + '">English</button></div>' +
-            '<figure class="say" data-pane="es"' + (pitchLang === 'es' ? '' : ' hidden') + '><figcaption class="mini-label">Pitch in Spanish</figcaption><blockquote id="' + es + '">Hola, soy Arcesio. Hago la granola DeliGran aquí en Leamington: naranja y coco, endulzada con miel, panela y jarabe de maple. Ya la venden mis clientes directamente y se vende bien. Le dejo una muestra para probar. La bolsa de 325 g se vende al público en ' + shelf + ' y a usted se la dejo en ' + whole + '. Podemos empezar con una caja de 6 bolsas a consignación.</blockquote>' +
-            '<button type="button" class="copy" data-copy="' + es + '">' + icon('copy') + '<span>Copy</span></button></figure>' +
-            '<figure class="say" data-pane="en"' + (pitchLang === 'en' ? '' : ' hidden') + '><figcaption class="mini-label">Pitch in English</figcaption><blockquote id="' + en + '">Hi, I’m Arcesio. I make DeliGran granola here in Leamington: orange and coconut, sweetened with honey, panela, and maple syrup. It already sells well directly to customers. Here’s a sample to try. The 325 g bag sells at ' + shelf + ' on the shelf and your price is ' + whole + '. We can start with one case of 6 on consignment.</blockquote>' +
-            '<button type="button" class="copy" data-copy="' + en + '">' + icon('copy') + '<span>Copy</span></button></figure>' +
-            tip('The prices come from the calculator in Step 8. Change them there and the pitch updates.');
+            '<figure class="say" data-pane="es"' + (pitchLang === 'es' ? '' : ' hidden') + '><figcaption class="mini-label">' + L('Pitch in Spanish', 'Presentación en español') + '</figcaption><blockquote id="' + es + '" lang="es">Hola, soy Arcesio. Hago la granola DeliGran aquí en Leamington: naranja y coco, endulzada con miel, panela y jarabe de maple. Ya la venden mis clientes directamente y se vende bien. Le dejo una muestra para probar. La bolsa de 325 g se vende al público en ' + shelf + ' y a usted se la dejo en ' + whole + '. Podemos empezar con una caja de 6 bolsas a consignación.</blockquote>' +
+            copyBtn(es) + '</figure>' +
+            '<figure class="say" data-pane="en"' + (pitchLang === 'en' ? '' : ' hidden') + '><figcaption class="mini-label">' + L('Pitch in English', 'Presentación en inglés') + '</figcaption><blockquote id="' + en + '" lang="en">Hi, I’m Arcesio. I make DeliGran granola here in Leamington: orange and coconut, sweetened with honey, panela, and maple syrup. It already sells well directly to customers. Here’s a sample to try. The 325 g bag sells at ' + shelf + ' on the shelf and your price is ' + whole + '. We can start with one case of 6 on consignment.</blockquote>' +
+            copyBtn(en) + '</figure>' +
+            tip(L('The prices come from the calculator in Step 8. Change them there and the pitch updates.', 'Los precios vienen de la calculadora del Paso 8. Si los cambias allá, la presentación se actualiza.'));
         } },
-        { task: 'stores', label: 'Pitch your first 5 stores', html: function () {
-          return '<p>Start where the customers already shop, then move outward.</p>' +
+        { task: 'stores', label: ['Pitch your first 5 stores', 'Visita tus primeras 5 tiendas'], html: function () {
+          function stop(n, t, d, cls) { return '<li' + (cls ? ' class="' + cls + '"' : '') + '><span class="rn">' + n + '</span><div><strong>' + t + '</strong><span>' + d + '</span></div></li>'; }
+          return '<p>' + L('Start where the customers already shop, then move outward.', 'Empieza donde ya compran los clientes y luego sigue hacia afuera.') + '</p>' +
             '<ol class="route">' +
-            '<li><span class="rn">1</span><div><strong>El Águila Market</strong><span>The natural first pitch</span></div></li>' +
-            '<li><span class="rn">2</span><div><strong>Other Latino grocery stores in Leamington</strong><span>Customers already know the flavours</span></div></li>' +
-            '<li><span class="rn">3</span><div><strong>Independent grocers, cafés, gyms and farm markets</strong><span>In Leamington, Kingsville and Windsor</span></div></li>' +
-            '<li class="later-stop"><span class="rn">' + icon('flag') + '</span><div><strong>Big chains, later</strong><span>They require third-party food safety audits</span></div></li>' +
+            stop(1, 'El Águila Market', L('The natural first pitch', 'La primera visita natural')) +
+            stop(2, L('Other Latino grocery stores in Leamington', 'Otros supermercados latinos en Leamington'), L('Where the customers already shop', 'Donde ya compran los clientes')) +
+            stop(3, L('Independent grocers, cafés, gyms and farm markets', 'Tiendas independientes, cafés, gimnasios y mercados de granjeros'), L('In Leamington, Kingsville and Windsor', 'En Leamington, Kingsville y Windsor')) +
+            stop(icon('flag'), L('Big chains, later', 'Grandes cadenas, más adelante'), L('They require third-party food safety audits', 'Exigen auditorías de inocuidad alimentaria de terceros'), 'later-stop') +
             '</ol>';
         } }
       ]
@@ -1293,47 +1415,55 @@ a { color: var(--leaf-ink); }
   ];
 
   const CERT = {
-    n: 0, id: 'certificate', special: true, title: 'Food handler certificate',
+    n: 0, id: 'certificate', special: true, title: ['Food handler certificate', 'Certificado de manipulador de alimentos'],
     slides: [
-      { kicker: 'Already done', title: 'Food handler certificate', html: function () {
-        return '<div class="certcard">' + icon('award', 'big') + '<strong>Arcesio Ramirez Mora</strong><span>Managing Food Safety</span><span>Valid until Aug 5, 2030 · Cost: $0</span></div>' +
-          tip('Bring a copy to the health unit inspection.') +
-          '<div><button type="button" class="btn btn-ghost" data-goto-step="1">Open Step 1: Health unit inspection' + icon('arrowR') + '</button></div>';
+      { kicker: ['Already done', 'Ya está hecho'], title: ['Food handler certificate', 'Certificado de manipulador de alimentos'], html: function () {
+        return '<div class="certcard">' + icon('award', 'big') + '<strong>Arcesio Ramirez Mora</strong><span>Managing Food Safety</span><span>' + L('Valid until Aug 5, 2030 · Cost: $0', 'Válido hasta el 5 de agosto de 2030 · Costo: $0') + '</span></div>' +
+          tip(L('Bring a copy to the health unit inspection.', 'Lleva una copia a la inspección de la unidad de salud.')) +
+          '<div><button type="button" class="btn btn-ghost" data-goto-step="1">' + L('Open Step 1: Health unit inspection', 'Abrir el Paso 1: Inspección de la unidad de salud') + icon('arrowR') + '</button></div>';
       } }
     ]
   };
 
   const ESSENTIALS = [
-    { t: 'Inspected kitchen', steps: [1], icon: 'home', sub: 'Step 1' },
-    { t: 'Registered business with insurance', steps: [2], icon: 'briefcase', sub: 'Step 2' },
-    { t: 'Bilingual label with Nutrition Facts and barcode', steps: [3, 4, 5, 6], icon: 'languages', sub: 'Steps 3–6' },
-    { t: 'Simple wholesale offer', steps: [8, 9], icon: 'tag', sub: 'Steps 8–9' }
+    { t: ['Inspected kitchen', 'Cocina inspeccionada'], steps: [1], icon: 'home', sub: ['Step 1', 'Paso 1'] },
+    { t: ['Registered business with insurance', 'Negocio registrado con seguro'], steps: [2], icon: 'briefcase', sub: ['Step 2', 'Paso 2'] },
+    { t: ['Bilingual label with Nutrition Facts and barcode', 'Etiqueta bilingüe con tabla nutricional y código de barras'], steps: [3, 4, 5, 6], icon: 'languages', sub: ['Steps 3–6', 'Pasos 3–6'] },
+    { t: ['Simple wholesale offer', 'Oferta al por mayor sencilla'], steps: [8, 9], icon: 'tag', sub: ['Steps 8–9', 'Pasos 8–9'] }
   ];
 
   const TIMELINE = [
-    { node: '1', label: 'Week 1', items: [['Call the health unit', 1], ['Register the name', 2], ['Request insurance quotes', 2], ['Start the label software trial', 3]] },
-    { node: '2', label: 'Week 2', items: [['Inspection', 1], ['GS1 barcode', 4], ['Weigh the recipe and finish the Nutrition Facts table', 3]] },
-    { node: '3', label: 'Week 3', items: [['Generate the front art', 6], ['Hire the designer for front and back labels', 6]] },
-    { node: '4', label: 'Week 4', items: [['Print labels', 6], ['Make the first store batch and fill in the batch log', 7], ['Make the sell sheet', 9]] },
-    { node: '5–6', label: 'Weeks 5–6', items: [['Pitch 5 stores, starting with Latino grocers in Leamington', 9]] }
+    { node: '1', label: ['Week 1', 'Semana 1'], items: [
+      [['Call the health unit', 'Llamar a la unidad de salud'], 1], [['Register the name', 'Registrar el nombre'], 2],
+      [['Request insurance quotes', 'Pedir cotizaciones de seguro'], 2], [['Start the label software trial', 'Empezar la prueba del programa de etiquetas'], 3]] },
+    { node: '2', label: ['Week 2', 'Semana 2'], items: [
+      [['Inspection', 'Inspección'], 1], [['GS1 barcode', 'Código de barras GS1'], 4],
+      [['Weigh the recipe and finish the Nutrition Facts table', 'Pesar la receta y terminar la tabla nutricional'], 3]] },
+    { node: '3', label: ['Week 3', 'Semana 3'], items: [
+      [['Generate the front art', 'Crear el arte del frente'], 6], [['Hire the designer for front and back labels', 'Contratar al diseñador para las etiquetas de frente y atrás'], 6]] },
+    { node: '4', label: ['Week 4', 'Semana 4'], items: [
+      [['Print labels', 'Imprimir las etiquetas'], 6], [['Make the first store batch and fill in the batch log', 'Hacer la primera tanda para tiendas y llenar el registro de lotes'], 7],
+      [['Make the sell sheet', 'Hacer la hoja de ventas'], 9]] },
+    { node: '5–6', label: ['Weeks 5–6', 'Semanas 5–6'], items: [
+      [['Pitch 5 stores, starting with Latino grocers in Leamington', 'Visitar 5 tiendas, empezando por los supermercados latinos de Leamington'], 9]] }
   ];
 
   const COSTS = [
-    { t: 'Food handler certificate', note: 'Done: valid until Aug 5, 2030', cost: '$0', open: 0, fixed: 'done' },
-    { t: 'Health unit notification and inspection', cost: 'Ask when calling', open: 1 },
-    { t: 'Business name registration (“DeliGran”)', cost: '$60', open: 2, task: 'registration.register' },
-    { t: 'Product liability insurance', cost: '$300–$800 / year', open: 2, task: 'registration.insurance' },
-    { t: 'Nutrition Facts table', cost: '$0–$100', open: 3 },
-    { t: 'Barcode (GS1 Canada)', cost: 'From $26.25', open: 4 },
-    { t: 'Bilingual front and back label design', cost: '$50–$150', open: 6, task: 'label-print.designer' },
-    { t: 'Label printing (about 300 sets)', cost: '$150–$300', open: 6, task: 'label-print.print' },
-    { t: 'Sales kit and first store pitches', cost: '$0–$50', open: 9 }
+    { t: ['Food handler certificate', 'Certificado de manipulador de alimentos'], note: ['Done: valid until Aug 5, 2030', 'Hecho: válido hasta el 5 de agosto de 2030'], cost: '$0', open: 0, fixed: 'done' },
+    { t: ['Health unit notification and inspection', 'Aviso e inspección de la unidad de salud'], cost: ['Ask when calling', 'Se pregunta al llamar'], open: 1 },
+    { t: ['Business name registration (“DeliGran”)', 'Registro del nombre del negocio (“DeliGran”)'], cost: '$60', open: 2, task: 'registration.register' },
+    { t: ['Product liability insurance', 'Seguro de responsabilidad por productos'], cost: ['$300–$800 / year', '$300–$800 / año'], open: 2, task: 'registration.insurance' },
+    { t: ['Nutrition Facts table', 'Tabla nutricional'], cost: '$0–$100', open: 3 },
+    { t: ['Barcode (GS1 Canada)', 'Código de barras (GS1 Canada)'], cost: ['From $26.25', 'Desde $26.25'], open: 4 },
+    { t: ['Bilingual front and back label design', 'Diseño de etiquetas bilingües de frente y atrás'], cost: '$50–$150', open: 6, task: 'label-print.designer' },
+    { t: ['Label printing (about 300 sets)', 'Impresión de etiquetas (unos 300 juegos)'], cost: '$150–$300', open: 6, task: 'label-print.print' },
+    { t: ['Sales kit and first store pitches', 'Kit de ventas y primeras visitas a tiendas'], cost: '$0–$50', open: 9 }
   ];
 
   const LATER = [
-    { icon: 'package', t: 'Custom printed bags', d: 'Once stores reorder steadily: about 1,000+ bags per order. Get quotes from Swiss Pack Canada in Burlington and ePac in Mississauga.' },
-    { icon: 'sparkle', t: 'New flavours', d: 'Each one needs its own Nutrition Facts table and barcode.' },
-    { icon: 'tm', t: 'Trademark', d: 'Protect the DeliGran name.' }
+    { icon: 'package', t: ['Custom printed bags', 'Bolsas impresas a la medida'], d: ['Once stores reorder steadily: about 1,000+ bags per order. Get quotes from Swiss Pack Canada in Burlington and ePac in Mississauga.', 'Cuando las tiendas vuelvan a pedir con regularidad: unas 1,000+ bolsas por pedido. Pide cotizaciones a Swiss Pack Canada en Burlington y a ePac en Mississauga.'] },
+    { icon: 'sparkle', t: ['New flavours', 'Nuevos sabores'], d: ['Each one needs its own Nutrition Facts table and barcode.', 'Cada uno necesita su propia tabla nutricional y su código de barras.'] },
+    { icon: 'tm', t: ['Trademark', 'Marca registrada'], d: ['Protect the DeliGran name.', 'Protege el nombre DeliGran.'] }
   ];
 
   /* ---------------- progress math ---------------- */
@@ -1350,74 +1480,85 @@ a { color: var(--leaf-ink); }
   }
   function nextStep() { return STEPS.find(function (s) { return stepStats(s).status !== 'done'; }) || null; }
   function stepByN(n) { return n === 0 ? CERT : STEPS[n - 1]; }
+  function stepWord(n) { return L('Step ', 'Paso ') + n; }
 
   /* ---------------- page ---------------- */
   const grid = $('#grid');
   function buildPage() {
     $('#brand-mark').innerHTML = icon('leaf');
+    $('.lang-ic').innerHTML = icon('globe');
     $('#cert-ic').innerHTML = icon('award');
-    $('#cert-pill').innerHTML = icon('check') + 'Done';
+    $('#cert-pill').innerHTML = icon('check') + L('Done', 'Listo');
     $('#hero-facts').innerHTML =
-      '<span class="hfact">' + icon('clock') + 'About 4–6 weeks</span>' +
-      '<span class="hfact">' + icon('coin') + '$600–$1,500 total</span>' +
-      '<span class="hfact">' + icon('shield') + 'Includes a year of insurance</span>';
+      '<span class="hfact">' + icon('clock') + L('About 4–6 weeks', 'Unas 4–6 semanas') + '</span>' +
+      '<span class="hfact">' + icon('coin') + L('$600–$1,500 total', '$600–$1,500 en total') + '</span>' +
+      '<span class="hfact">' + icon('shield') + L('Includes a year of insurance', 'Incluye un año de seguro') + '</span>';
 
     $('#ess-row').innerHTML = ESSENTIALS.map(function (e, i) {
       return '<a class="ess" href="#step-' + e.steps[0] + '" data-open-step="' + e.steps[0] + '" data-ess="' + i + '" style="--i:' + i + '">' +
         '<span class="ess-ic">' + icon(e.icon) + '<span class="ess-badge">' + CHECK + '</span></span>' +
-        '<span class="ess-text"><strong>' + e.t + '</strong><small>' + e.sub + '</small></span></a>';
+        '<span class="ess-text"><strong>' + tx(e.t) + '</strong><small>' + tx(e.sub) + '</small></span></a>';
     }).join('');
 
     grid.innerHTML = STEPS.map(function (s, i) {
       const total = taskSlides(s).length;
       return '<a class="card" href="#step-' + s.n + '" data-open-step="' + s.n + '" style="--i:' + i + '">' +
         '<div class="card-top"><span class="num"><span class="num-n">' + s.n + '</span><span class="num-check">' + CHECK + '</span></span>' +
-        '<span class="card-ic">' + icon(s.icon) + '</span><span class="pill pill-todo" data-role="pill">To do</span></div>' +
-        '<h3>' + s.title + '</h3><p>' + s.short + '</p>' +
-        '<div class="card-meta"><span class="meta">' + icon('calendar') + s.week + '</span><span class="meta">' + icon('coin') + s.cost + '</span></div>' +
+        '<span class="card-ic">' + icon(s.icon) + '</span><span class="pill pill-todo" data-role="pill"></span></div>' +
+        '<h3>' + tx(s.title) + '</h3><p>' + tx(s.short) + '</p>' +
+        '<div class="card-meta"><span class="meta">' + icon('calendar') + tx(s.week) + '</span><span class="meta">' + icon('coin') + tx(s.cost) + '</span></div>' +
         '<div class="bar"><span data-role="bar"></span></div>' +
-        '<div class="card-foot"><span data-role="count">0 of ' + total + ' tasks</span><span class="go"><span data-role="cta">Start</span>' + icon('arrowR') + '</span></div>' +
+        '<div class="card-foot"><span data-role="count">0 / ' + total + '</span><span class="go"><span data-role="cta"></span>' + icon('arrowR') + '</span></div>' +
         '</a>';
     }).join('');
 
     $('#timeline').innerHTML = TIMELINE.map(function (w) {
-      return '<div class="wk"><span class="wk-node" aria-hidden="true">' + w.node + '</span><div class="wk-body"><h3>' + w.label + '</h3>' +
+      return '<div class="wk"><span class="wk-node" aria-hidden="true">' + w.node + '</span><div class="wk-body"><h3>' + tx(w.label) + '</h3>' +
         w.items.map(function (it) {
-          return '<button type="button" class="tl-item" data-open-step="' + it[1] + '" data-tl="' + it[1] + '"><small>' + icon('check') + 'Step ' + it[1] + '</small><span>' + it[0] + '</span></button>';
+          return '<button type="button" class="tl-item" data-open-step="' + it[1] + '" data-tl="' + it[1] + '"><small>' + icon('check') + stepWord(it[1]) + '</small><span>' + tx(it[0]) + '</span></button>';
         }).join('') + '</div></div>';
     }).join('');
 
     $('#costs').innerHTML = COSTS.map(function (c, i) {
       return '<a class="cost-row" href="#' + (c.open === 0 ? 'certificate' : 'step-' + c.open) + '" data-open-step="' + c.open + '" data-cost="' + i + '">' +
-        '<span class="cost-name">' + c.t + (c.open ? '<small>Step ' + c.open + '</small>' : '<small>' + c.note + '</small>') + '</span>' +
-        '<span class="cost-val">' + c.cost + '</span><span class="pill pill-todo" data-role="pill">To do</span></a>';
+        '<span class="cost-name">' + tx(c.t) + '<small>' + (c.open ? stepWord(c.open) : tx(c.note)) + '</small></span>' +
+        '<span class="cost-val">' + tx(c.cost) + '</span><span class="pill pill-todo" data-role="pill"></span></a>';
     }).join('');
 
     $('#later').innerHTML = LATER.map(function (l) {
-      return '<div class="later-item"><span class="later-ic">' + icon(l.icon) + '</span><div><strong>' + l.t + '</strong><p>' + l.d + '</p></div></div>';
+      return '<div class="later-item"><span class="later-ic">' + icon(l.icon) + '</span><div><strong>' + tx(l.t) + '</strong><p>' + tx(l.d) + '</p></div></div>';
     }).join('');
 
     $('#deck-close').innerHTML = icon('x');
-    $('#deck-back').innerHTML = icon('arrowL') + '<span>Back</span>';
+    $('#deck-back').innerHTML = icon('arrowL') + '<span>' + L('Back', 'Atrás') + '</span>';
     $('.toast-ic').innerHTML = icon('leaf');
+  }
+
+  function applyLang() {
+    document.documentElement.lang = lang;
+    document.title = tx(UI.title);
+    document.querySelectorAll('[data-t]').forEach(function (el) { el.textContent = tx(UI[el.dataset.t]); });
+    document.querySelectorAll('[data-th]').forEach(function (el) { el.innerHTML = tx(UI[el.dataset.th]); });
+    document.querySelectorAll('[data-ta]').forEach(function (el) { el.setAttribute('aria-label', tx(UI[el.dataset.ta])); });
+    document.querySelectorAll('[data-lang]').forEach(function (b) { b.setAttribute('aria-pressed', String(b.dataset.lang === lang)); });
   }
 
   function setPill(el, status, isNext) {
     el.className = 'pill ' + (isNext ? 'pill-next' : 'pill-' + status);
-    el.textContent = isNext ? 'Next up' : status === 'done' ? 'Done' : status === 'doing' ? 'In progress' : 'To do';
+    el.textContent = isNext ? L('Next up', 'Sigue') : status === 'done' ? L('Done', 'Listo') : status === 'doing' ? L('In progress', 'En curso') : L('To do', 'Pendiente');
   }
 
   function refresh() {
     const t = totals(); const pct = t.total ? Math.round(t.done / t.total * 100) : 0; const nx = nextStep();
     $('#ring-fill').style.strokeDashoffset = String(100 - pct);
     $('#p-done').textContent = t.done;
-    $('#p-total').textContent = 'of ' + t.total + ' tasks';
-    $('#p-steps').textContent = t.steps + ' of ' + STEPS.length + ' steps complete';
+    $('#p-total').textContent = L('of ' + t.total + ' tasks', 'de ' + t.total + ' tareas');
+    $('#p-steps').textContent = L(t.steps + ' of ' + STEPS.length + ' steps complete', t.steps + ' de ' + STEPS.length + ' pasos completos');
     const go = $('#hero-go');
     if (nx) {
       go.hidden = false; $('#p-alldone').hidden = true;
       go.dataset.openStep = nx.n;
-      go.firstElementChild.textContent = (t.done ? 'Continue: Step ' : 'Start with Step ') + nx.n;
+      go.firstElementChild.textContent = t.done ? L('Continue: Step ', 'Seguir: Paso ') + nx.n : L('Start with Step ', 'Empezar con el Paso ') + nx.n;
     } else { go.hidden = true; $('#p-alldone').hidden = false; }
 
     STEPS.forEach(function (s, i) {
@@ -1427,8 +1568,8 @@ a { color: var(--leaf-ink); }
       card.classList.toggle('is-next', isNext);
       setPill($('[data-role="pill"]', card), st.status, isNext);
       $('[data-role="bar"]', card).style.width = (st.total ? st.done / st.total * 100 : 0) + '%';
-      $('[data-role="count"]', card).textContent = st.done + ' of ' + st.total + ' tasks';
-      $('[data-role="cta"]', card).textContent = st.status === 'done' ? 'Review' : st.status === 'doing' ? 'Continue' : 'Start';
+      $('[data-role="count"]', card).textContent = L(st.done + ' of ' + st.total + ' tasks', st.done + ' de ' + st.total + ' tareas');
+      $('[data-role="cta"]', card).textContent = st.status === 'done' ? L('Review', 'Revisar') : st.status === 'doing' ? L('Continue', 'Seguir') : L('Start', 'Empezar');
     });
 
     document.querySelectorAll('[data-ess]').forEach(function (el) {
@@ -1454,8 +1595,9 @@ a { color: var(--leaf-ink); }
     $('#dock-fill').style.strokeDashoffset = String(100 - pct);
     $('#dock-pct').textContent = pct + '%';
     if (nx) {
-      $('#dock-title').textContent = 'Step ' + nx.n + ' · ' + nx.title;
-      const b = $('#dock-go'); b.dataset.openStep = nx.n; b.firstElementChild.textContent = stepStats(nx).done ? 'Continue' : 'Start';
+      $('#dock-title').textContent = stepWord(nx.n) + ' · ' + tx(nx.title);
+      const b = $('#dock-go'); b.dataset.openStep = nx.n;
+      b.firstElementChild.textContent = stepStats(nx).done ? L('Continue', 'Seguir') : L('Start', 'Empezar');
     }
     dock.classList.toggle('show', !!nx && !deck && !heroVisible);
   }
@@ -1519,7 +1661,7 @@ a { color: var(--leaf-ink); }
       if (!btn) return;
       if (!btn.dataset.label && lab) btn.dataset.label = lab.textContent;
       btn.classList.toggle('ok', ok);
-      if (lab) lab.textContent = ok ? 'Copied' : 'Select and copy';
+      if (lab) lab.textContent = ok ? L('Copied', 'Copiado') : L('Select and copy', 'Selecciona y copia');
       if (!ok && src) selectEl(src);
       clearTimeout(btn._t);
       btn._t = setTimeout(function () { btn.classList.remove('ok'); if (lab && btn.dataset.label) lab.textContent = btn.dataset.label; }, 1800);
@@ -1586,34 +1728,36 @@ a { color: var(--leaf-ink); }
     const items = deck.slides.map(function (s, i) {
       if (!s.task) return '';
       const on = isDone(step.id + '.' + s.task);
-      return '<button type="button" class="ov-item' + (on ? ' on' : '') + '" data-jump="' + i + '"><span class="ov-check">' + CHECK + '</span><span>' + s.label + '</span>' + icon('arrowR') + '</button>';
+      return '<button type="button" class="ov-item' + (on ? ' on' : '') + '" data-jump="' + i + '"><span class="ov-check">' + CHECK + '</span><span>' + tx(s.label) + '</span>' + icon('arrowR') + '</button>';
     }).join('');
-    return '<span class="kicker">' + icon(step.icon) + 'Step ' + step.n + ' of ' + STEPS.length + '</span>' +
-      '<h3 class="s-title">' + step.title + '</h3>' +
-      '<p class="lead-p">' + step.why + '</p>' +
-      facts([['calendar', step.week], ['coin', step.costLong || step.cost], ['check', st.done + ' of ' + st.total + ' tasks done']]) +
-      '<div class="ov-list"><span class="ov-head">In this step</span>' + items + '</div>';
+    return '<span class="kicker">' + icon(step.icon) + L('Step ' + step.n + ' of ' + STEPS.length, 'Paso ' + step.n + ' de ' + STEPS.length) + '</span>' +
+      '<h3 class="s-title">' + tx(step.title) + '</h3>' +
+      '<p class="lead-p">' + tx(step.why) + '</p>' +
+      facts([['calendar', tx(step.week)], ['coin', tx(step.costLong || step.cost)], ['check', L(st.done + ' of ' + st.total + ' tasks done', st.done + ' de ' + st.total + ' tareas hechas')]]) +
+      '<div class="ov-list"><span class="ov-head">' + L('In this step', 'En este paso') + '</span>' + items + '</div>';
   }
 
   function finishHTML(step) {
     const st = stepStats(step);
     const nxt = STEPS[step.n] || null;
     const actions = '<div class="finish-actions">' +
-      (nxt ? '<button type="button" class="btn btn-primary" data-goto-step="' + nxt.n + '">Open Step ' + nxt.n + icon('arrowR') + '</button>' : '') +
-      '<button type="button" class="btn btn-ghost" data-close>Back to all steps</button></div>';
+      (nxt ? '<button type="button" class="btn btn-primary" data-goto-step="' + nxt.n + '">' + L('Open Step ', 'Abrir el Paso ') + nxt.n + icon('arrowR') + '</button>' : '') +
+      '<button type="button" class="btn btn-ghost" data-close>' + L('Back to all steps', 'Volver a todos los pasos') + '</button></div>';
     if (st.status === 'done') {
       return '<div class="big-check">' + CHECK + '</div>' +
-        '<h3 class="s-title">Step ' + step.n + ' is done</h3>' +
-        '<p>' + (nxt ? 'Nice work. Next up: Step ' + nxt.n + ', ' + nxt.title + '.' : 'That was the last step. DeliGran is ready for stores.') + '</p>' + actions;
+        '<h3 class="s-title">' + L('Step ' + step.n + ' is done', '¡Paso ' + step.n + ' listo!') + '</h3>' +
+        '<p>' + (nxt
+          ? L('Nice work. Next up: Step ' + nxt.n + ', ' + tx(nxt.title) + '.', 'Buen trabajo. Sigue el Paso ' + nxt.n + ': ' + tx(nxt.title) + '.')
+          : L('That was the last step. DeliGran is ready for stores.', 'Ese era el último paso. DeliGran está listo para las tiendas.')) + '</p>' + actions;
     }
     const open = deck.slides.map(function (s, i) {
       if (!s.task || isDone(step.id + '.' + s.task)) return '';
-      return '<button type="button" class="ov-item" data-jump="' + i + '"><span class="ov-check">' + CHECK + '</span><span>' + s.label + '</span>' + icon('arrowR') + '</button>';
+      return '<button type="button" class="ov-item" data-jump="' + i + '"><span class="ov-check">' + CHECK + '</span><span>' + tx(s.label) + '</span>' + icon('arrowR') + '</button>';
     }).join('');
     const pct = st.total ? st.done / st.total * 100 : 0;
     return '<div class="partial"><svg viewBox="0 0 120 120" aria-hidden="true"><circle class="track" cx="60" cy="60" r="50"/><circle class="fill" cx="60" cy="60" r="50" pathLength="100" stroke-dashoffset="' + (100 - pct) + '"/></svg><b>' + st.done + '/' + st.total + '</b></div>' +
-      '<h3 class="s-title">' + (st.done ? 'Almost there' : 'End of Step ' + step.n) + '</h3>' +
-      '<p>' + st.done + ' of ' + st.total + ' tasks are marked done. These are still open:</p>' +
+      '<h3 class="s-title">' + (st.done ? L('Almost there', 'Ya casi') : L('End of Step ', 'Fin del Paso ') + step.n) + '</h3>' +
+      '<p>' + L(st.done + ' of ' + st.total + ' tasks are marked done. These are still open:', st.done + ' de ' + st.total + ' tareas están marcadas. Faltan estas:') + '</p>' +
       '<div class="ov-list">' + open + '</div>' + actions;
   }
 
@@ -1623,20 +1767,20 @@ a { color: var(--leaf-ink); }
     let kicker;
     if (slide.task) {
       const tasks = taskSlides(step);
-      kicker = icon('check') + 'Task ' + (tasks.indexOf(slide) + 1) + ' of ' + tasks.length + (slide.kicker ? ' · ' + slide.kicker : '');
+      kicker = icon('check') + L('Task ', 'Tarea ') + (tasks.indexOf(slide) + 1) + L(' of ', ' de ') + tasks.length + (slide.kicker ? ' · ' + tx(slide.kicker) : '');
     } else {
-      kicker = icon('bulb') + (slide.kicker || 'Good to know');
+      kicker = icon('bulb') + (slide.kicker ? tx(slide.kicker) : L('Good to know', 'Dato útil'));
     }
     const body = typeof slide.html === 'function' ? slide.html() : slide.html;
-    return '<span class="kicker">' + kicker + '</span><h3 class="s-title">' + (slide.title || slide.label) + '</h3>' + body;
+    return '<span class="kicker">' + kicker + '</span><h3 class="s-title">' + tx(slide.title || slide.label) + '</h3>' + body;
   }
 
   function renderSegs() {
     const slides = deck.slides, idx = deck.idx;
-    if (dSegs.dataset.step !== deck.step.id || dSegs.children.length !== slides.length) {
-      dSegs.dataset.step = deck.step.id;
+    if (dSegs.dataset.step !== deck.step.id + lang || dSegs.children.length !== slides.length) {
+      dSegs.dataset.step = deck.step.id + lang;
       dSegs.innerHTML = slides.map(function (s, i) {
-        return '<button type="button" class="seg" data-seg="' + i + '" aria-label="Go to slide ' + (i + 1) + ' of ' + slides.length + '"><i></i></button>';
+        return '<button type="button" class="seg" data-seg="' + i + '" aria-label="' + L('Go to slide ', 'Ir a la diapositiva ') + (i + 1) + L(' of ', ' de ') + slides.length + '"><i></i></button>';
       }).join('');
       void dSegs.offsetWidth;
     }
@@ -1654,21 +1798,22 @@ a { color: var(--leaf-ink); }
     dBack.disabled = idx === 0;
     if (slide.task) {
       const on = isDone(step.id + '.' + slide.task);
-      dCenter.innerHTML = '<button type="button" class="mark' + (on ? ' on' : '') + '" id="mark" aria-pressed="' + on + '"><span class="ring-s">' + CHECK + '</span><span class="mark-t">' + (on ? 'Done' : 'Mark as done') + '</span></button>';
+      dCenter.innerHTML = '<button type="button" class="mark' + (on ? ' on' : '') + '" id="mark" aria-pressed="' + on + '"><span class="ring-s">' + CHECK + '</span><span class="mark-t">' + markText(on) + '</span></button>';
     } else {
       dCenter.innerHTML = '<span class="counter">' + (idx + 1) + ' / ' + slides.length + '</span>';
     }
-    const label = last ? 'Close' : slide.kind === 'overview' ? 'Start' : 'Next';
+    const label = last ? L('Close', 'Cerrar') : slide.kind === 'overview' ? L('Start', 'Empezar') : L('Next', 'Siguiente');
     dNext.innerHTML = '<span>' + label + '</span>' + icon(last ? 'check' : 'arrowR');
     dNext.classList.remove('nudge');
   }
+  function markText(on) { return on ? L('Done', 'Hecho') : L('Mark as done', 'Ya lo hice'); }
 
   function renderDeck(anim) {
     const step = deck.step, slide = deck.slides[deck.idx];
     if (step.n === 0) { dNum.innerHTML = CHECK; dNum.classList.add('is-check'); }
     else { dNum.textContent = step.n; dNum.classList.remove('is-check'); }
-    dSup.textContent = step.n === 0 ? 'Already done' : 'Step ' + step.n + ' of ' + STEPS.length;
-    dTitle.textContent = step.title;
+    dSup.textContent = step.n === 0 ? L('Already done', 'Ya está hecho') : L('Step ' + step.n + ' of ' + STEPS.length, 'Paso ' + step.n + ' de ' + STEPS.length);
+    dTitle.textContent = tx(step.title);
     renderSegs();
     const cls = slide.kind === 'finish' ? ' finish' : '';
     dBody.innerHTML = '<div class="slide in-' + anim + cls + '">' + slideHTML(step, slide) + '</div>';
@@ -1697,7 +1842,7 @@ a { color: var(--leaf-ink); }
     const on = isDone(id);
     btn.classList.toggle('on', on);
     btn.setAttribute('aria-pressed', String(on));
-    $('.mark-t', btn).textContent = on ? 'Done' : 'Mark as done';
+    $('.mark-t', btn).textContent = markText(on);
     refresh();
     if (on) {
       burst(btn, 16);
@@ -1706,10 +1851,10 @@ a { color: var(--leaf-ink); }
     const after = stepStats(step).status, all = totals();
     if (all.done === all.total && allBefore.done !== allBefore.total) {
       setTimeout(function () { burst(dNext, 48); }, 150);
-      toast('Every task is done. DeliGran is store-ready!');
+      toast(L('Every task is done. DeliGran is store-ready!', '¡Todo listo! DeliGran está listo para las tiendas.'));
     } else if (before !== 'done' && after === 'done') {
       setTimeout(function () { burst(dNext, 36); }, 150);
-      toast('Step ' + step.n + ' is done. Nice work!');
+      toast(L('Step ' + step.n + ' is done. Nice work!', '¡Paso ' + step.n + ' listo! Buen trabajo.'));
     }
   }
 
@@ -1729,9 +1874,24 @@ a { color: var(--leaf-ink); }
     }
   }
 
+  function setLang(l) {
+    if ((l !== 'en' && l !== 'es') || l === lang) return;
+    lang = l;
+    try { localStorage.setItem(LANG_KEY, l); } catch (e) {}
+    try {
+      const u = new URL(location.href);
+      if (u.searchParams.has('lang')) { u.searchParams.set('lang', l); history.replaceState(null, '', u.pathname + u.search + u.hash); }
+    } catch (e) {}
+    resetBtn.classList.remove('armed');
+    applyLang();
+    buildPage();
+    refresh();
+    if (deck) renderDeck('open');
+  }
+
   /* ---------------- events ---------------- */
   document.addEventListener('click', function (e) {
-    const t = e.target.closest('[data-open-step],[data-copy],[data-copy-key],[data-sub],[data-jump],[data-goto-step],[data-close],[data-seg],[data-tab],#mark');
+    const t = e.target.closest('[data-open-step],[data-copy],[data-copy-key],[data-sub],[data-jump],[data-goto-step],[data-close],[data-seg],[data-tab],[data-lang],#mark');
     if (!t) return;
     if (t.hasAttribute('data-open-step')) {
       e.preventDefault();
@@ -1756,6 +1916,8 @@ a { color: var(--leaf-ink); }
       const slide = t.closest('.slide');
       slide.querySelectorAll('[data-tab]').forEach(function (b) { b.setAttribute('aria-selected', String(b.dataset.tab === pitchLang)); });
       slide.querySelectorAll('[data-pane]').forEach(function (p) { p.hidden = p.dataset.pane !== pitchLang; });
+    } else if (t.hasAttribute('data-lang')) {
+      setLang(t.dataset.lang);
     } else if (t.id === 'mark') {
       toggleTask(t);
     }
@@ -1783,15 +1945,15 @@ a { color: var(--leaf-ink); }
     }
   });
 
-  let tx = 0, ty = 0, tOk = false;
+  let tX = 0, tY = 0, tOk = false;
   dBody.addEventListener('touchstart', function (e) {
     if (e.touches.length !== 1) { tOk = false; return; }
     tOk = !e.target.closest('input, textarea, pre, .table-wrap');
-    tx = e.touches[0].clientX; ty = e.touches[0].clientY;
+    tX = e.touches[0].clientX; tY = e.touches[0].clientY;
   }, { passive: true });
   dBody.addEventListener('touchend', function (e) {
     if (!tOk || !deck) return;
-    const p = e.changedTouches[0]; const dx = p.clientX - tx, dy = p.clientY - ty;
+    const p = e.changedTouches[0]; const dx = p.clientX - tX, dy = p.clientY - tY;
     if (Math.abs(dx) > 60 && Math.abs(dx) > Math.abs(dy) * 1.5) {
       if (dx < 0 && deck.idx < deck.slides.length - 1) go(deck.idx + 1, 'next');
       else if (dx > 0) back();
@@ -1810,21 +1972,23 @@ a { color: var(--leaf-ink); }
   /* reset with an in-page confirmation */
   const resetBtn = $('#reset'); let resetTimer = 0;
   resetBtn.addEventListener('click', function () {
+    const lab = resetBtn.firstElementChild;
     if (!resetBtn.classList.contains('armed')) {
       resetBtn.classList.add('armed');
-      resetBtn.firstElementChild.textContent = 'Tap again to clear all progress';
+      lab.textContent = tx(UI.resetArmed);
       clearTimeout(resetTimer);
-      resetTimer = setTimeout(function () { resetBtn.classList.remove('armed'); resetBtn.firstElementChild.textContent = 'Reset progress'; }, 4000);
+      resetTimer = setTimeout(function () { resetBtn.classList.remove('armed'); lab.textContent = tx(UI.reset); }, 4000);
       return;
     }
     clearTimeout(resetTimer);
     state.tasks = {}; state.subs = {}; state.prices = Object.assign({}, DEFAULT_PRICES);
     save(); refresh();
-    resetBtn.classList.remove('armed'); resetBtn.firstElementChild.textContent = 'Reset progress';
-    toast('Progress cleared. Start again with Step 1.');
+    resetBtn.classList.remove('armed'); lab.textContent = tx(UI.reset);
+    toast(L('Progress cleared. Start again with Step 1.', 'Progreso borrado. Empieza otra vez con el Paso 1.'));
   });
 
   /* ---------------- start ---------------- */
+  applyLang();
   buildPage();
   requestAnimationFrame(function () { requestAnimationFrame(refresh); });
   fromHash();

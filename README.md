@@ -18,9 +18,21 @@ A one-page, step-by-step guide to getting DeliGran granola into stores. No login
 - **Copy buttons** for the phone script, the bilingual ingredient and allergen text, the ChatGPT front-label prompt, and the store pitches.
 - **Timeline**, **Where we stand** (costs and status) and **Later**.
 
+## English / Español
+
+The **EN | ES** switch at the top right of the page changes everything to Spanish or English, and the page remembers the choice. On a phone set to Spanish, the page opens in Spanish by itself.
+
+Some text stays in its original language on purpose:
+- The **label text** stays in English and French, because that is what gets printed.
+- The **phone script for the health inspector** and the **request to the insurance broker** stay in English, because those people speak English. In Spanish mode, a Spanish translation appears under each one.
+- The **ChatGPT prompt** stays in English, so the label art comes out in English and French.
+- The **store pitch** has both versions, Spanish and English.
+
+## Links
+
 Progress is saved in the browser on each device (localStorage). The **Reset progress** button at the bottom clears it.
 
-Each step has its own link, for example `…/#step-3` opens the Nutrition Facts step directly.
+Each step has its own link, for example `…/#step-3` opens the Nutrition Facts step directly. Add `?lang=es` or `?lang=en` to open the page in that language, for example `https://innovatiff.github.io/deligranplan/?lang=es`.
 
 ## Publish on GitHub Pages
 
